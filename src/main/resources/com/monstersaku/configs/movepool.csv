@@ -1,0 +1,6 @@
+id,moveType;name;elementType;accuracy;priority;ammunition;target;effect
+1;NORMAL;Punch;NORMAL;90;1;10;ENEMY;120
+2;SPECIAL;Special Punch;NORMAL;90;1;10;ENEMY;120
+3;STATUS;Burn;FIRE;90;1;10;ENEMY;BURN;0,0,0,0,0,0
+4;STATUS;Heal;NORMAL;90;1;10;OWN;-;25,0,0,0,0,0
+5;STATUS;Taunting;NORMAL;90;1;10;ENEMY;-;0,0,-1,0,-1,0
