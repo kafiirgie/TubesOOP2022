@@ -1,6 +1,7 @@
 package com.monstersaku;
 
 import com.monstersaku.util.CSVReader;
+import com.monstersaku.view.*;
 
 import java.io.File;
 import java.util.Arrays;
@@ -15,6 +16,8 @@ public class Main {
             "configs/element-type-effectivity-chart.csv"));
 
     public static void main(String[] args) {
+        Menu.showWelcome();
+        Menu.showStartupMenu();
         for (String fileName : CSV_FILE_PATHS) {
             try {
                 System.out.printf("Filename: %s\n", fileName);

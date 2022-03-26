@@ -1,5 +1,7 @@
 package com.monstersaku.monsters;
 
+import com.monstersaku.monsters.move.*;
+
 //import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +12,10 @@ public class Monster {
     private List<ElementType> elements;
     private Stats stats;
     private List<Move> moves;
-    private StateMonster state = StateMonster.ALIVE;
+    private MonsterState state = MonsterState.ALIVE;
 
     // Constructor
-    public MonsterModel(String name, Stats stats){
+    public Monster(String name, Stats stats){
         this.name = name;
         this.elements = new ArrayList<ElementType>();
         this.stats = stats;
@@ -32,7 +34,7 @@ public class Monster {
         return this.elements;
     }
 
-    public StateMonster getStateMonster(){
+    public MonsterState getStateMonster(){
         return this.state;
     }
 

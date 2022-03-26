@@ -1,4 +1,6 @@
-package com.monstersaku.monsters;
+package com.monstersaku.monsters.move;
+
+import com.monstersaku.monsters.ElementType;
 
 public class DefaultMove extends Move {
     // Attributes

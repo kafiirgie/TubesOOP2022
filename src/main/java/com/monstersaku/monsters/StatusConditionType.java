@@ -1,6 +1,6 @@
 package com.monstersaku.monsters;
 
-public enum StatusCondType {
+public enum StatusConditionType {
     BURN,
     POISON,
     SLEEP,
