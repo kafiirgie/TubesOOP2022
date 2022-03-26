@@ -1,3 +1,9 @@
+package com.monstersaku.classes;
+package com.monstersaku.classes;
+package com.monstersaku.classes;
+package com.monstersaku.classes;
+package com.monstersaku.classes;
+package com.monstersaku.classes;
 import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +13,7 @@ import com.monsters.ElementType;
 import com.monsters.move;
 //import disini
 
-public class monster {
+public class Monster {
     private final String name;
     private List<ElementType> elements;
     private Stats stats;
