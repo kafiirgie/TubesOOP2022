@@ -7,8 +7,8 @@ public class DefaultMove extends Move {
     private double basePower;
     
     // Constructor
-    public DefaultMove(String name, ElementType elementType) {
-        super(name, elementType, 100, 0, 999999);
+    public DefaultMove(int id, String name, ElementType elementType, int accuracy, int priority, int ammunition, MoveTarget target, double basePower) {
+        super(id, name, elementType, 100, 0, 999999, target);
         this.basePower = 50;
     }
 

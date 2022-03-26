@@ -4,20 +4,20 @@ package com.monstersaku.monsters;
 
 public class ElementEff {
     // Attributes
-    public final ElementType type;
+    public final ElementType source;
     public final ElementType target;
     public final double effectivity;
 
     // Constructor
-    public ElementEff(ElementType type, ElementType target, double effectivity){
-        this.type = type;
+    public ElementEff(ElementType source, ElementType target, double effectivity){
+        this.source = source;
         this.target = target;
         this.effectivity = effectivity;
     }
 
     // Getter
     public ElementType getTypeEff() {
-        return this.type;
+        return this.source;
     }
 
     public ElementType getTargetEff() {

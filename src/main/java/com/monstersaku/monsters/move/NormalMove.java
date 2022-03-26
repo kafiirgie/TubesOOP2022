@@ -7,8 +7,8 @@ public class NormalMove extends Move{
     private double basePower;
     
     // Constructor
-    public NormalMove(String name, ElementType elementType, int accuracy, int priority, int ammunition, double basePower) {
-        super(name, elementType, accuracy, priority, ammunition);
+    public NormalMove(int id, String name, ElementType elementType, int accuracy, int priority, int ammunition, MoveTarget target, double basePower) {
+        super(id, name, elementType, accuracy, priority, ammunition, target);
         this.basePower = basePower;
     }
     

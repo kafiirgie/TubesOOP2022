@@ -1,31 +1,33 @@
 package com.monstersaku.monsters;
 
 import com.monstersaku.monsters.move.*;
+import com.monstersaku.monsters.statuscondition.*;
 
-//import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Monster {
-    // Attributes
+public class Monster implements Burn, Poison, Sleep, Paralyze {
+    // ATTRIBUTES
+    private final int id;
     private final String name;
     private List<ElementType> elements;
     private Stats stats;
     private List<Move> moves;
     private MonsterState state = MonsterState.ALIVE;
 
-    // Constructor
-    public Monster(String name, Stats stats){
+    // CONSTRUCTOR
+    public Monster(int id, String name, Stats stats){
+        this.id = id;
         this.name = name;
         this.elements = new ArrayList<ElementType>();
         this.stats = stats;
         this.moves = new ArrayList<Move>();
     }
 
-    // Setter
+    // SETTER
 
 
-    // Getter
+    // GETTER
     public String getName(){
         return this.name;
     }
@@ -46,4 +48,19 @@ public class Monster {
     //addMove to monster
     //showMonsterMoves
     //monster takedamage
+
+    // METHODS
+    // Methods for Status Condition -> pake try catch(?)
+    public void burnStatusActive() {
+        // soon
+    }
+    public void poisonStatusActive() {
+        // soon
+    }
+    public void sleepStatusActive() {
+        // soon
+    }
+    public void paralyzeStatusActive() {
+        // soon
+    }
 }
