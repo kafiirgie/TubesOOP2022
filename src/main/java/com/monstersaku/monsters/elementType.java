@@ -1,5 +1,5 @@
-package com.monstersaku.classes;
-package com.monstersaku.classes;
+package com.monstersaku.monsters;
+
 public enum ElementType {
     NORMAL,
     FIRE,
