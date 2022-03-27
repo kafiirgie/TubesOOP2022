@@ -17,11 +17,13 @@ public class Main {
             "configs/element-type-effectivity-chart.csv"));
 
     public static void main(String[] args) {
+        System.out.flush();
         Menu.showWelcome();
         Menu.showStartupMenu();
         Configuration config = new Configuration();
         config.setupElementEff();
         config.setupMove();
+        config.setupMonster();
         // for (String fileName : CSV_FILE_PATHS) {
         //     try {
         //         System.out.printf("Filename: %s\n", fileName);

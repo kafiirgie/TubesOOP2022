@@ -2,6 +2,7 @@ package com.monstersaku.monsters;
 
 import com.monstersaku.monsters.move.*;
 import com.monstersaku.monsters.statuscondition.*;
+import com.monstersaku.config.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,18 +11,36 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     // ATTRIBUTES
     private final int id;
     private final String name;
-    private List<ElementType> elements;
+    private final List<ElementType> elements = new ArrayList<ElementType>();
     private Stats stats;
-    private List<Move> moves;
-    private MonsterState state = MonsterState.ALIVE;
+    private List<Move> moves = new ArrayList<Move>();
+    private MonsterState state;
+    private StatusConditionType status;
 
     // CONSTRUCTOR
-    public Monster(int id, String name, Stats stats){
-        this.id = id;
+    public Monster(String id, String name, String elements, String stats, String moves){
+        // Set id
+        this.id = Integer.valueOf(id);
+        // Set name
         this.name = name;
-        this.elements = new ArrayList<ElementType>();
-        this.stats = stats;
-        this.moves = new ArrayList<Move>();
+        // Set elements
+        String[] element = elements.split(",");
+        for (int i = 0; i < element.length; i++) {
+            this.elements.add(ElementType.valueOf(element[i]));
+        }
+        // Set stats
+        String[] stat = stats.split(",");
+        this.stats = new Stats(Double.valueOf(stat[0]), Double.valueOf(stat[1]), Double.valueOf(stat[2]), Double.valueOf(stat[3]), Double.valueOf(stat[4]), Double.valueOf(stat[5]));
+        // Set moves
+        String[] move = moves.split(",");
+        for (int i = 0; i < move.length; i++) {
+            this.moves.add(Configuration.listOfMove.get(Integer.valueOf(move[i])-1));
+            //this.moves.add(Integer.valueOf(move[i]));
+        }
+        // Set state
+        this.state = MonsterState.ALIVE;
+        // Set status
+        this.status = null;
     }
 
     // SETTER
@@ -36,20 +55,29 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
         return this.elements;
     }
 
-    public MonsterState getStateMonster(){
-        return this.state;
+    public Stats getStats(){
+        return this.stats;
     }
 
     public List<Move> getMoves(){
         return this.moves;
     }
+    
+    public MonsterState getStateMonster(){
+        return this.state;
+    }
+
+    public StatusConditionType getStatus(){
+        return this.status;
+    }
+
+    // METHODS
 
     //addElement to monster
     //addMove to monster
     //showMonsterMoves
     //monster takedamage
-
-    // METHODS
+    
     // Methods for Status Condition -> pake try catch(?)
     public void burnStatusActive() {
         // soon

@@ -7,9 +7,9 @@ public class SpecialMove extends Move{
     private double basePower;
     
     // Constructor
-    public SpecialMove(String id, String name, String elementType, String accuracy, String priority, String ammunition, String target, double basePower) {
+    public SpecialMove(String id, String name, String elementType, String accuracy, String priority, String ammunition, String target, String basePower) {
         super(id, name, elementType, accuracy, priority, ammunition, target);
-        this.basePower = basePower;
+        this.basePower = Double.valueOf(basePower);
     }
     
     // Setter
