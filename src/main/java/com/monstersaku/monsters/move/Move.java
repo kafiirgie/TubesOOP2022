@@ -13,14 +13,14 @@ public abstract class Move {
     private final MoveTarget target;
 
     // Constructor
-    public Move(int id, String name, ElementType elementType, int accuracy, int priority, int ammunition, MoveTarget target) {
-        this.id = id;
+    public Move(String id, String name, String elementType, String accuracy, String priority, String ammunition, String target) {
+        this.id = Integer.valueOf(id);
         this.name = name;
-        this.elementType = elementType;
-        this.accuracy = accuracy;
-        this.priority = priority;
-        this.ammunition = ammunition;
-        this.target = target;
+        this.elementType = ElementType.valueOf(elementType);
+        this.accuracy = Integer.valueOf(accuracy);
+        this.priority = Integer.valueOf(priority);
+        this.ammunition = Integer.valueOf(ammunition);
+        this.target = MoveTarget.valueOf(target);
     }
 
     // Setter

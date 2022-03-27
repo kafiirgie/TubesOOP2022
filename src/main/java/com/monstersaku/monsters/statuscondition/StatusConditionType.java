@@ -1,4 +1,4 @@
-package com.monstersaku.monsters;
+package com.monstersaku.monsters.statuscondition;
 
 public enum StatusConditionType {
     BURN,

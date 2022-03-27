@@ -9,18 +9,18 @@ public class ElementEff {
     public final double effectivity;
 
     // Constructor
-    public ElementEff(ElementType source, ElementType target, double effectivity){
-        this.source = source;
-        this.target = target;
-        this.effectivity = effectivity;
+    public ElementEff(String source, String target, String effectivity){
+        this.source = ElementType.valueOf(source);
+        this.target = ElementType.valueOf(target);
+        this.effectivity = Double.valueOf(effectivity);
     }
 
     // Getter
-    public ElementType getTypeEff() {
+    public ElementType getSource() {
         return this.source;
     }
 
-    public ElementType getTargetEff() {
+    public ElementType getTarget() {
         return this.target;
     }
 

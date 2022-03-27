@@ -4,7 +4,7 @@ import com.monstersaku.monsters.*;
 
 public class StatusMove extends Move {
     // Constructor
-    public StatusMove(int id, String name, ElementType elementType, int accuracy, int priority, int ammunition, MoveTarget target, double basePower) {
+    public StatusMove(String id, String name, String elementType, String accuracy, String priority, String ammunition, String target, double basePower) {
         super(id, name, elementType, accuracy, priority, ammunition, target);
     }
     
