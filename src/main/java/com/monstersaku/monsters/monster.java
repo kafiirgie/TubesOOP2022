@@ -34,7 +34,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
         // Set moves
         String[] move = moves.split(",");
         for (int i = 0; i < move.length; i++) {
-            this.moves.add(Configuration.listOfMove.get(Integer.valueOf(move[i])-1));
+            this.moves.add(Configuration.getListOfMove().get(Integer.valueOf(move[i])-1));
             //this.moves.add(Integer.valueOf(move[i]));
         }
         // Set state
@@ -77,7 +77,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     //addMove to monster
     //showMonsterMoves
     //monster takedamage
-    
+
     // Methods for Status Condition -> pake try catch(?)
     public void burnStatusActive() {
         // soon

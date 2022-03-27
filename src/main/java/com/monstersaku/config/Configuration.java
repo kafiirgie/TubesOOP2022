@@ -15,11 +15,19 @@ public class Configuration {
     private static final String fileOfMove = "../configs/movepool.csv";
     private static final String fileOfElementEff = "../configs/element-type-effectivity-chart.csv";
 
-    public static final List<Monster> listOfMonster = new ArrayList<Monster>();
-    public static final List<Move> listOfMove = new ArrayList<Move>();
-    public static final List<ElementEff> listOfElementEff = new ArrayList<ElementEff>();
+    private static final List<Monster> listOfMonster = new ArrayList<Monster>();
+    private static final List<Move> listOfMove = new ArrayList<Move>();
+    private static final List<ElementEff> listOfElementEff = new ArrayList<ElementEff>();
 
-    //public static void
+    public static List<Monster> getListOfMonster() {
+        return listOfMonster;
+    }
+    public static List<Move> getListOfMove() {
+        return listOfMove;
+    }
+    public static List<ElementEff> getListOfElementEff() {
+        return listOfElementEff;
+    }
 
     public void setupElementEff() {
         try {
@@ -32,16 +40,14 @@ public class Configuration {
             for (String[] line : lines) {
                 ElementEff readElementEff = new ElementEff(line[0], line[1], line[2]);
                 listOfElementEff.add(readElementEff);
-                System.out.println(listOfElementEff.get(i).getSource());
-                System.out.println(listOfElementEff.get(i).getTarget());
-                System.out.println(listOfElementEff.get(i).getEffectivity());
+                System.out.println(listOfElementEff.get(i));
                 i++;
                 System.out.println(i + " item has been read");
             }
             System.out.println("=========== CONTENT END ===========");
             System.out.println();
         } catch (Exception e) {
-            // do nothing
+            System.out.println(e.getMessage());
         }
     }
 
@@ -77,7 +83,7 @@ public class Configuration {
             System.out.println("=========== CONTENT END ===========");
             System.out.println();
         } catch (Exception e) {
-            // do nothing
+            System.out.println(e.getMessage());
         }
     }
     
