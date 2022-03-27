@@ -14,7 +14,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     private final List<ElementType> elements = new ArrayList<ElementType>();
     private Stats stats;
     private List<Move> moves = new ArrayList<Move>();
-    private MonsterState state;
+    private boolean isAlive;
     private StatusConditionType status;
 
     // CONSTRUCTOR
@@ -38,7 +38,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
             //this.moves.add(Integer.valueOf(move[i]));
         }
         // Set state
-        this.state = MonsterState.ALIVE;
+        this.isAlive = true;
         // Set status
         this.status = null;
     }
@@ -63,8 +63,8 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
         return this.moves;
     }
     
-    public MonsterState getStateMonster(){
-        return this.state;
+    public boolean getIsAlive(){
+        return this.isAlive;
     }
 
     public StatusConditionType getStatus(){
