@@ -1,5 +1,7 @@
 package com.monstersaku.view;
 
+import java.util.Scanner;
+
 public class Menu {
     public static void showWelcome() {
         System.out.println("Welcome to 'MONSTER SAKU'");
@@ -12,7 +14,10 @@ public class Menu {
         System.out.println("[0] Exit");
     }
 
-    public static void runMenu(int input) {
+    public static void selectMenu() {
+        System.out.printf("Select : ");
+        Scanner sc = new Scanner(System.in);
+        int input = sc.nextInt();
         if (input == 1) {
             startGame();
         } else if (input == 2) {
@@ -20,6 +25,7 @@ public class Menu {
         } else if (input == 3) {
             exit();
         }
+        sc.close();
     }
 
     public static void startGame() {

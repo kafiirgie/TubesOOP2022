@@ -1,7 +1,7 @@
 package com.monstersaku.monsters;
 
 public class Stats {
-    // Attributes
+    // ATTRIBUTES
     private double healthPoint;
     private double attack;
     private double defense;
@@ -9,7 +9,7 @@ public class Stats {
     private double specialDefense;
     private double speed;
 
-    // Constructor
+    // CONSTRUCTOR
     public Stats(double healthPoint, double attack, double defense, double specialAttack, double specialDefense, double speed) {
         this.healthPoint = healthPoint;
         this.attack = attack;
@@ -19,7 +19,7 @@ public class Stats {
         this.speed = speed;
     }
 
-    // Setter
+    // SETTER
     public void setHealthPoint(double healthPoint) {
         this.healthPoint = healthPoint;
     }
@@ -39,7 +39,7 @@ public class Stats {
         this.speed = speed;
     }
 
-    // Getter
+    // GETTER
     public double getHealthPoint() {
         return this.healthPoint;
     }
@@ -64,7 +64,7 @@ public class Stats {
         return this.speed;
     }
 
-    // Methods
+    // METHODS
     public void showStats() {
         System.out.println("STATS");
         System.out.println("Health Point \t: " + this.healthPoint);
@@ -74,5 +74,5 @@ public class Stats {
         System.out.println("Special Defense \t: " + this.specialDefense);
         System.out.println("Speed \t: " + this.speed);
     }
-    
+    //public int getFinalHealthPoint() {}
 }

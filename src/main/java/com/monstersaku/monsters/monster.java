@@ -37,6 +37,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
             this.moves.add(Configuration.getListOfMove().get(Integer.valueOf(move[i])-1));
             //this.moves.add(Integer.valueOf(move[i]));
         }
+        // !!!! add default move !!!!
         // Set state
         this.isAlive = true;
         // Set status

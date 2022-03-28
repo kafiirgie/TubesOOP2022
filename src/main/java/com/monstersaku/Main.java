@@ -20,10 +20,7 @@ public class Main {
         System.out.flush();
         Menu.showWelcome();
         Menu.showStartupMenu();
-        Configuration config = new Configuration();
-        config.setupElementEff();
-        config.setupMove();
-        config.setupMonster();
+        Game.setupGameData();
         // for (String fileName : CSV_FILE_PATHS) {
         //     try {
         //         System.out.printf("Filename: %s\n", fileName);
