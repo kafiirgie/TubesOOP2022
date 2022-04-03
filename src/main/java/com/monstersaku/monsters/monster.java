@@ -13,8 +13,8 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     private final List<ElementType> elements = new ArrayList<ElementType>();
     private Stats stats;
     private List<Move> moves = new ArrayList<Move>();
-    private boolean isAlive;
-    private StatusConditionType status;
+    private boolean isAlive = true;
+    private StatusConditionType status = null;
 
     // CONSTRUCTOR
     public Monster(String name, String elements, String stats, String moves){
@@ -37,36 +37,15 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
         }
         DefaultMove defaultMove = new DefaultMove();
         this.moves.add(defaultMove);
-        // SET state
-        this.isAlive = true;
-        // SET status
-        this.status = null;
     }
 
     // GETTER
-    public String getName(){
-        return this.name;
-    }
-
-    public List<ElementType> getElements(){
-        return this.elements;
-    }
-
-    public Stats getStats(){
-        return this.stats;
-    }
-
-    public List<Move> getMoves(){
-        return this.moves;
-    }
-    
-    public boolean getIsAlive(){
-        return this.isAlive;
-    }
-
-    public StatusConditionType getStatus(){
-        return this.status;
-    }
+    public String getName() { return this.name; }
+    public List<ElementType> getElements() { return this.elements; }
+    public Stats getStats() { return this.stats; }
+    public List<Move> getMoves() { return this.moves; }
+    public boolean getIsAlive() { return this.isAlive; }
+    public StatusConditionType getStatus() { return this.status; }
 
     // METHODS
 

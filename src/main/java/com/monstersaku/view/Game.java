@@ -2,7 +2,7 @@ package com.monstersaku.view;
 
 import java.util.Scanner;
 
-import com.monstersaku.config.*;
+import com.monstersaku.util.*;
 import com.monstersaku.players.*;
 
 public class Game {
@@ -11,10 +11,8 @@ public class Game {
     private static Player player2;
     
     public static void setupGameData() {
-        Configuration config = new Configuration();
-        config.setupElementEff();
-        config.setupMove();
-        config.setupMonster();
+        Config.setAllElementEff();
+        Config.setAllMonster();    
     }
 
     public static void setupPlayer() {
@@ -32,22 +30,15 @@ public class Game {
         System.out.println("[2] Switch");
     }
 
-    public static void selectAction() {
+    public static void selectAction(Player player) {
         System.out.printf("Select : ");
         Scanner sc = new Scanner(System.in);
         int input = sc.nextInt();
         if (input == 1) {
-            moveMonster();
+            player.selectMonsterMove();
         } else if (input == 2) {
-            switchMonster();
+            player.switchActiveMonster();
         }
         sc.close();
-    }
-
-    public static void moveMonster() {
-
-    }
-    public static void switchMonster() {
-        
     }
 }

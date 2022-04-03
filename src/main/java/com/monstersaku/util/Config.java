@@ -2,7 +2,6 @@ package com.monstersaku.util;
 
 import java.io.File;
 import java.util.List;
-import java.util.ArrayList;
 
 import com.monstersaku.monsters.*;
 import com.monstersaku.monsters.move.*;
@@ -28,7 +27,22 @@ public class Config {
     }
 
     // METHODS
-    public static void setAllMonster(int id) {
+    public static void setAllElementEff() {
+        try {
+            CSVReader reader = new CSVReader(new File(Config.class.getResource(fileOfElementEff).toURI()), ";");
+            reader.setSkipHeader(true);
+            List<String[]> lines = reader.read();
+            for (String[] line : lines) {
+                ElementEffKey key = new ElementEffKey(line[0], line[1]);
+                Double effectivity = Double.valueOf(line[2]);
+                mapOfElementEff.put(key, effectivity);
+            }
+        } catch (Exception e) {
+            System.out.println("Can't set element effectivity : " + e.getMessage());
+        }
+    }
+
+    public static void setAllMonster() {
         try {
             CSVReader reader = new CSVReader(new File(Config.class.getResource(fileOfMonster).toURI()), ";");
             reader.setSkipHeader(true);
@@ -45,7 +59,7 @@ public class Config {
     
     public static void addNewMove(int id) {
         try {
-            CSVReader reader = new CSVReader(new File(Config.class.getResource(fileOfMonster).toURI()), ";");
+            CSVReader reader = new CSVReader(new File(Config.class.getResource(fileOfMove).toURI()), ";");
             reader.setSkipHeader(true);
             List<String[]> lines = reader.read();
 
@@ -75,18 +89,4 @@ public class Config {
         }
     }
 
-    public static void setAllElementEff() {
-        try {
-            CSVReader reader = new CSVReader(new File(Config.class.getResource(fileOfElementEff).toURI()), ";");
-            reader.setSkipHeader(true);
-            List<String[]> lines = reader.read();
-            for (String[] line : lines) {
-                ElementEffKey key = new ElementEffKey(line[0], line[1]);
-                Double effectivity = Double.valueOf(line[2]);
-                mapOfElementEff.put(key, effectivity);
-            }
-        } catch (Exception e) {
-            System.out.println("Can't set monsters : " + e.getMessage());
-        }
-    }
 }

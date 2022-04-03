@@ -1,20 +1,19 @@
 package com.monstersaku;
 
-import com.monstersaku.util.CSVReader;
+// import com.monstersaku.util.CSVReader;
 import com.monstersaku.view.*;
-import com.monstersaku.config.*;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
+// import java.io.File;
+// import java.util.Arrays;
+// import java.util.Collections;
+// import java.util.List;
+// import java.util.ArrayList;
 
 public class Main {
-    private static final List<String> CSV_FILE_PATHS = Collections.unmodifiableList(Arrays.asList(
-            "configs/monsterpool.csv",
-            "configs/movepool.csv",
-            "configs/element-type-effectivity-chart.csv"));
+    // private static final List<String> CSV_FILE_PATHS = Collections.unmodifiableList(Arrays.asList(
+    //         "configs/monsterpool.csv",
+    //         "configs/movepool.csv",
+    //         "configs/element-type-effectivity-chart.csv"));
 
     public static void main(String[] args) {
         System.out.flush();

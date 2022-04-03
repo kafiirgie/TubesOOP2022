@@ -19,21 +19,23 @@ public class Player {
 
     // CONSTRUCTOR
     public Player(int id, String name) {
-        // Set id and name
+        // SET id and name
         this.id = id;
         this.name = name;
-        // Set random monster
+
+        // SET random monster
         Set<Integer> setOfIdMonster = getUniqueRandomInt(6, Config.getMapOfMonster().size());
         Integer[] arrOfIdMonster = setOfIdMonster.toArray(new Integer[setOfIdMonster.size()]);
         for (Integer idMonster : arrOfIdMonster) {
             this.monsters.add(Config.getMapOfMonster().get(Integer.valueOf(idMonster)));
         }
-        // Set activeMonster
+        
+        // SET activeMonster
         this.activeMonster = this.monsters.get(0);
-        // Set nonActiveMonster
-        for (int i = 1; i < 6; i++) {
-            this.nonActiveMonsters.add(this.monsters.get(i));
-        }
+
+        // SET nonActiveMonster
+        this.nonActiveMonsters = this.monsters;
+        this.nonActiveMonsters.remove(0);
     }
 
     // METHODS
@@ -46,4 +48,7 @@ public class Player {
         assert set.size() == size;
         return set;
     }
+
+    public void selectMonsterMove() {}
+    public void switchActiveMonster() {}
 }

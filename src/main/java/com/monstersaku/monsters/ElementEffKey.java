@@ -1,26 +1,17 @@
 package com.monstersaku.monsters;
 
-//import java.lang.annotation.ElementType;
-
 public class ElementEffKey {
-    // Attributes
+    // ATTRIBUTES
     public final ElementType source;
     public final ElementType target;
-    //public final double effectivity;
 
-    // Constructor
+    // CONSTRUCTOR
     public ElementEffKey(String source, String target){
         this.source = ElementType.valueOf(source);
         this.target = ElementType.valueOf(target);
-        //this.effectivity = Double.valueOf(effectivity);
     }
 
-    // Getter
-    public ElementType getSource() {
-        return this.source;
-    }
-
-    public ElementType getTarget() {
-        return this.target;
-    }
+    // GETTER
+    public ElementType getSource() { return this.source; }
+    public ElementType getTarget() { return this.target; }
 }
