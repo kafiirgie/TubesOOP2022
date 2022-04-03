@@ -1,6 +1,7 @@
 package com.monstersaku.view;
 
 import java.util.Scanner;
+import java.lang.Thread;
 
 import com.monstersaku.util.*;
 import com.monstersaku.players.*;
@@ -9,15 +10,63 @@ public class Game {
     private static boolean isGameRunning = true;
     private static Player player1;
     private static Player player2;
+    //private static Player[] players = [player1, player2];
+
+    public static void play() {
+        try {
+            while (isGameRunning) {
+                System.out.flush();
+                
+                // SET GAME DATA
+                setupGameData();
+                System.out.println("Please wait...");
+                Thread.sleep(1000);
+                
+                // SET PLAYER
+                setupPlayer();
+                
+                // GAME ROUND
+                boolean isCurrentRound = true;
+                while (isCurrentRound) {
+                    // PLAYER TURN
+                    int id = 1;
+                    Player playerTurn = player1;
+                    boolean isCurrentTurn = true;
+                    while (isCurrentTurn) {
+                        if (id == 2) { playerTurn = player2; }
+                        System.out.flush();
+                        // TODO : player play his turn
+                        showAction();
+                        selectAction(playerTurn);
+                        
+                        id++;
+                        if (id > 2) { isCurrentTurn = false; }
+                    }
+
+                    // TODO : kondisi game berakhir
+
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    } 
     
     public static void setupGameData() {
-        Config.setAllElementEff();
-        Config.setAllMonster();    
+        try {
+            Config.setAllElementEff();
+            Config.setAllMonster(); 
+            System.out.println("Data has been loaded successfully");   
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void setupPlayer() {
         Scanner sc = new Scanner(System.in);
+        System.out.printf("Player 1 name : ");
         String playerName1 = sc.next();
+        System.out.printf("Player 2 name : ");
         String playerName2 = sc.next();
         player1 = new Player(1, playerName1);
         player2 = new Player(2, playerName2);
@@ -31,8 +80,8 @@ public class Game {
     }
 
     public static void selectAction(Player player) {
-        System.out.printf("Select : ");
         Scanner sc = new Scanner(System.in);
+        System.out.printf("Select action : ");
         int input = sc.nextInt();
         if (input == 1) {
             player.selectMonsterMove();

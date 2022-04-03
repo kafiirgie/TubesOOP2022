@@ -48,7 +48,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     public StatusConditionType getStatus() { return this.status; }
 
     // METHODS
-
+    
     //addElement to monster
     //addMove to monster
     //showMonsterMoves

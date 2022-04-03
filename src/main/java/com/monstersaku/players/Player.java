@@ -3,10 +3,12 @@ package com.monstersaku.players;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.HashSet;
 
 import com.monstersaku.monsters.*;
+import com.monstersaku.monsters.move.NormalMove;
 import com.monstersaku.util.Config;
 
 public class Player {
@@ -49,6 +51,27 @@ public class Player {
         return set;
     }
 
-    public void selectMonsterMove() {}
-    public void switchActiveMonster() {}
+    public void selectMonsterMove() {
+        showMonsterMove();
+        Scanner sc = new Scanner(System.in);
+        System.out.printf("Select move : ");
+        int input = sc.nextInt();
+        activeMonster.getMoves().get(input-1).doMove();
+        sc.close();
+    }
+    public void switchActiveMonster() {
+
+    }
+    public void showMonsterMove() {
+        for (int i = 0; i < activeMonster.getMoves().size(); i++) {
+            System.out.printf("[%d]. %s\n", i+1, activeMonster.getMoves().get(i).getMoveName());
+        }
+    }
+    public void showMonsterAlive() {
+        System.out.printf("Your active monster : %s\n", activeMonster.getName());
+        for (int i = 0; i < nonActiveMonsters.size(); i++) {
+            System.out.printf("[%d]. %s\n", i+1, nonActiveMonsters.get(i).getName());
+            //TODO : alive condition not set
+        }
+    }
 }

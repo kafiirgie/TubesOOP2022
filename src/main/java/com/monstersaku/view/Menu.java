@@ -1,6 +1,7 @@
 package com.monstersaku.view;
 
 import java.util.Scanner;
+import java.lang.Thread;
 
 public class Menu {
     public static void showWelcome() {
@@ -29,7 +30,7 @@ public class Menu {
     }
 
     public static void startGame() {
-        System.out.println("game already started...");
+        Game.play();
     }
 
     public static void help() {
@@ -37,7 +38,12 @@ public class Menu {
     }
 
     public static void exit() {
-        Exit.exitCredits();
-        System.out.println("processing to exit from the game...");
+        try {
+            System.out.println("processing to exit from the game...");
+            Thread.sleep(1000);
+            Exit.exitCredits();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
