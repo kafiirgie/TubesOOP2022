@@ -2,14 +2,13 @@ package com.monstersaku.monsters;
 
 import com.monstersaku.monsters.move.*;
 import com.monstersaku.monsters.statuscondition.*;
-import com.monstersaku.config.*;
+import com.monstersaku.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Monster implements Burn, Poison, Sleep, Paralyze {
     // ATTRIBUTES
-    private final int id;
     private final String name;
     private final List<ElementType> elements = new ArrayList<ElementType>();
     private Stats stats;
@@ -18,34 +17,31 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     private StatusConditionType status;
 
     // CONSTRUCTOR
-    public Monster(String id, String name, String elements, String stats, String moves){
-        // Set id
-        this.id = Integer.valueOf(id);
-        // Set name
+    public Monster(String name, String elements, String stats, String moves){
+        // SET name
         this.name = name;
-        // Set elements
+        // SET elements
         String[] element = elements.split(",");
         for (int i = 0; i < element.length; i++) {
             this.elements.add(ElementType.valueOf(element[i]));
         }
-        // Set stats
+        // SET stats
         String[] stat = stats.split(",");
         this.stats = new Stats(Double.valueOf(stat[0]), Double.valueOf(stat[1]), Double.valueOf(stat[2]), Double.valueOf(stat[3]), Double.valueOf(stat[4]), Double.valueOf(stat[5]));
-        // Set moves
+        // SET moves
         String[] move = moves.split(",");
         for (int i = 0; i < move.length; i++) {
-            this.moves.add(Configuration.getListOfMove().get(Integer.valueOf(move[i])-1));
-            //this.moves.add(Integer.valueOf(move[i]));
+            // read move first
+            Config.addNewMove(Integer.valueOf(move[i]));
+            this.moves.add(Config.getMapOfMove().get(Integer.valueOf(move[i])));
         }
-        // !!!! add default move !!!!
-        // Set state
+        DefaultMove defaultMove = new DefaultMove();
+        this.moves.add(defaultMove);
+        // SET state
         this.isAlive = true;
-        // Set status
+        // SET status
         this.status = null;
     }
-
-    // SETTER
-
 
     // GETTER
     public String getName(){

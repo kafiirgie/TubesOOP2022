@@ -17,7 +17,7 @@ public class Configuration {
 
     private static final List<Monster> listOfMonster = new ArrayList<Monster>();
     private static final List<Move> listOfMove = new ArrayList<Move>();
-    private static final List<ElementEff> listOfElementEff = new ArrayList<ElementEff>();
+    private static final List<ElementEffKey> listOfElementEff = new ArrayList<ElementEffKey>();
 
     public static List<Monster> getListOfMonster() {
         return listOfMonster;
@@ -25,7 +25,7 @@ public class Configuration {
     public static List<Move> getListOfMove() {
         return listOfMove;
     }
-    public static List<ElementEff> getListOfElementEff() {
+    public static List<ElementEffKey> getListOfElementEff() {
         return listOfElementEff;
     }
 
@@ -38,7 +38,7 @@ public class Configuration {
             System.out.println("=========== CONTENT START ===========");
             int i = 0;
             for (String[] line : lines) {
-                ElementEff readElementEff = new ElementEff(line[0], line[1], line[2]);
+                ElementEffKey readElementEff = new ElementEffKey(line[0], line[1], line[2]);
                 listOfElementEff.add(readElementEff);
                 System.out.println(listOfElementEff.get(i));
                 i++;

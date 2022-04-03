@@ -13,9 +13,9 @@ public class StatusMove extends Move {
     private double effectSpecialDefense;
     private double effectSpeed;
     // Constructor
-    public StatusMove(String id, String name, String elementType, String accuracy, String priority, String ammunition, String target, String status, String effects) {
+    public StatusMove(String name, String elementType, String accuracy, String priority, String ammunition, String target, String status, String effects) {
         // Set super class attributes
-        super(id, name, elementType, accuracy, priority, ammunition, target);
+        super(name, elementType, accuracy, priority, ammunition, target);
         // Set status
         if (!status.equals("-")) {
             this.status = StatusConditionType.valueOf(status);

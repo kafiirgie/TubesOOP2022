@@ -4,7 +4,7 @@ import com.monstersaku.monsters.*;
 
 public abstract class Move {
     // Attributes
-    private final int id;
+    //private final int id;
     private final String name;
     private final ElementType elementType;
     private final int accuracy;
@@ -13,8 +13,8 @@ public abstract class Move {
     private final MoveTarget target;
 
     // Constructor
-    public Move(String id, String name, String elementType, String accuracy, String priority, String ammunition, String target) {
-        this.id = Integer.valueOf(id);
+    public Move(String name, String elementType, String accuracy, String priority, String ammunition, String target) {
+        //this.id = Integer.valueOf(id);
         this.name = name;
         this.elementType = ElementType.valueOf(elementType);
         this.accuracy = Integer.valueOf(accuracy);

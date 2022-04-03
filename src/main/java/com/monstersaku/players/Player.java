@@ -2,20 +2,20 @@ package com.monstersaku.players;
 
 import java.util.ArrayList;
 import java.util.List;
-// import java.util.Random;
-
+import java.util.Random;
+import java.util.Set;
+import java.util.HashSet;
 
 import com.monstersaku.monsters.*;
-import com.monstersaku.config.*;
+import com.monstersaku.util.Config;
 
 public class Player {
     // ATTRIBUTES
     private final int id;
     private String name;
-    private List<Monster> monsters;
+    private List<Monster> monsters = new ArrayList<Monster>();
     private Monster activeMonster;
-    private List<Monster> nonActiveMonsters;
-    //private boolean isCurrentTurn;
+    private List<Monster> nonActiveMonsters = new ArrayList<Monster>();
 
     // CONSTRUCTOR
     public Player(int id, String name) {
@@ -23,14 +23,27 @@ public class Player {
         this.id = id;
         this.name = name;
         // Set random monster
-        for (int i = 0; i < 5; i++) {
-            int min = 0;
-            int max = Configuration.getListOfMonster().size();
-            int randomId = (int)Math.floor(Math.random()*(max-min+1)+min);
-            // Random random = new Random();
-            // int randomId = random.nextInt(Configuration.getListOfMonster().size());
-            this.monsters.add(Configuration.getListOfMonster().get(randomId));
+        Set<Integer> setOfIdMonster = getUniqueRandomInt(6, Config.getMapOfMonster().size());
+        Integer[] arrOfIdMonster = setOfIdMonster.toArray(new Integer[setOfIdMonster.size()]);
+        for (Integer idMonster : arrOfIdMonster) {
+            this.monsters.add(Config.getMapOfMonster().get(Integer.valueOf(idMonster)));
+        }
+        // Set activeMonster
+        this.activeMonster = this.monsters.get(0);
+        // Set nonActiveMonster
+        for (int i = 1; i < 6; i++) {
+            this.nonActiveMonsters.add(this.monsters.get(i));
         }
     }
+
     // METHODS
+    public Set<Integer> getUniqueRandomInt(int size, int range) {
+        Random random = new Random();
+        Set<Integer> set = new HashSet<Integer>(size);
+        while(set.size() < size) {
+            while (set.add(random.nextInt(range)) != true);
+        }
+        assert set.size() == size;
+        return set;
+    }
 }

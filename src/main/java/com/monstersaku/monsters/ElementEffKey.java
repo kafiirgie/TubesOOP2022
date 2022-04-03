@@ -2,17 +2,17 @@ package com.monstersaku.monsters;
 
 //import java.lang.annotation.ElementType;
 
-public class ElementEff {
+public class ElementEffKey {
     // Attributes
     public final ElementType source;
     public final ElementType target;
-    public final double effectivity;
+    //public final double effectivity;
 
     // Constructor
-    public ElementEff(String source, String target, String effectivity){
+    public ElementEffKey(String source, String target){
         this.source = ElementType.valueOf(source);
         this.target = ElementType.valueOf(target);
-        this.effectivity = Double.valueOf(effectivity);
+        //this.effectivity = Double.valueOf(effectivity);
     }
 
     // Getter
@@ -22,9 +22,5 @@ public class ElementEff {
 
     public ElementType getTarget() {
         return this.target;
-    }
-
-    public double getEffectivity() {
-        return this.effectivity;
     }
 }
