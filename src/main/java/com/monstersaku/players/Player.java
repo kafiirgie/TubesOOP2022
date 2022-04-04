@@ -27,24 +27,25 @@ public class Player {
 
         // SET random monster
         for (int i = (6*(id-1)); i < (6*id); i++) {
-            int idMonster = arrOfIdMonster[i];
-            this.monsters.add(Config.getMapOfMonster().get(idMonster+1));
+            int idMonster = arrOfIdMonster[i]+1;
+            System.out.println(idMonster);
+            System.out.println(Config.getMapOfMonster().get(idMonster).getName());
+            this.monsters.add(Config.getMapOfMonster().get(idMonster));
         }
-        
         // SET activeMonster
         this.activeMonster = this.monsters.get(0);
-
         // SET nonActiveMonster
-        this.nonActiveMonsters = this.monsters;
+        this.nonActiveMonsters.addAll(monsters);
         this.nonActiveMonsters.remove(0);
     }
-
+       
     // GETTER
-    public String getName() { return this.name; }
-    public List<Monster> getMonsters() { return this.monsters; }
-    public Monster getActiveMonster() { return this.activeMonster; }
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public List<Monster> getMonsters() { return monsters; }
+    public Monster getActiveMonster() { return activeMonster; }
     public List<Monster> getNonActiveMonsters() { return nonActiveMonsters; }
-
+    
     // SETTER
     public void setName(String name) { this.name = name; }
     public void setMonsters(List<Monster> monsters) { this.monsters = monsters; }
@@ -55,6 +56,7 @@ public class Player {
     public static void setRandomIdMonster() { // there are minimum 12 monsters in configuration file
         Set<Integer> setOfIdMonster = getUniqueRandomInt(12, Config.getMapOfMonster().size());
         arrOfIdMonster = setOfIdMonster.toArray(new Integer[setOfIdMonster.size()]);
+        System.out.println(setOfIdMonster);
     }
     public static Set<Integer> getUniqueRandomInt(int size, int range) {
         Random random = new Random();
@@ -80,7 +82,6 @@ public class Player {
         int input = sc.nextInt();
         this.activeMonster = this.nonActiveMonsters.get(input-1);
         this.nonActiveMonsters.remove(input-1);
-        sc.close();
     }
     public void switchActiveMonster() {
         showMonsterAlive();
@@ -91,12 +92,15 @@ public class Player {
         this.activeMonster = this.nonActiveMonsters.get(input-1);
         this.nonActiveMonsters.remove(input-1);
         this.nonActiveMonsters.add(temp);
-        sc.close();
     }
     public void showMonsterAlive() {
+        System.out.printf("All monsters: \n");
+        for (int i = 0; i < this.monsters.size(); i++) {
+            System.out.printf("[%d] %s\n", i+1, this.monsters.get(i).getName());
+        }
         System.out.printf("Your inactive monsters: \n");
         for (int i = 0; i < this.nonActiveMonsters.size(); i++) {
-            System.out.printf("[%d]. %s\n", i+1, this.nonActiveMonsters.get(i).getName());
+            System.out.printf("[%d] %s\n", i+1, this.nonActiveMonsters.get(i).getName());
         }
     }
 
@@ -106,6 +110,5 @@ public class Player {
         System.out.printf("Select move : ");
         int input = sc.nextInt();
         this.activeMonster.getMoves().get(input-1).doMove();
-        sc.close();
     }
 }

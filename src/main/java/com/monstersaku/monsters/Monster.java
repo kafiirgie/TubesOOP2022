@@ -55,7 +55,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     // METHODS
     public void showMonsterMove() {
         for (int i = 0; i < this.moves.size(); i++) {
-            System.out.printf("[%d]. %s\n", i+1, this.moves.get(i).getMoveName());
+            System.out.printf("[%d] %s\n", i+1, this.moves.get(i).getMoveName());
         }
     }
     //monster takedamage

@@ -12,7 +12,7 @@ public class Game {
 
     public static void play() {
         //try {
-            System.out.flush();
+            //System.out.flush();
             // SET GAME DATA
             setupGameData();
             System.out.println("Please wait...");
@@ -30,13 +30,16 @@ public class Game {
                 while (isRoundRunning) {
                     // TURN
                     if (id == 2) { playerTurn = player2; }
-                    //System.out.flush();
                     if (!playerTurn.getActiveMonster().getIsAlive()) {
                         playerTurn.activeMonsterDied();
                         playerTurn.selectActiveMonster();
                     }
+                    Config.clearConsole();
+                    System.out.println("===== BEGINNING OF TURN =====");
+                    System.out.println("Now is " + playerTurn.getName() + "'s turn");
                     showAction();
                     selectAction(playerTurn);
+                    System.out.println("===== END OF TURN =====");
                     id++;
                     if (playerTurn.getMonsters().isEmpty()) { isGameRunning = false; break; } // game is end
                     if (id > 2) { isRoundRunning = false; } // go to next round
@@ -67,26 +70,25 @@ public class Game {
         String playerName2 = sc.next();
         player1 = new Player(1, playerName1);
         player2 = new Player(2, playerName2);
-        sc.close();
     }
 
     public static void showAction() {
         System.out.println("----- ACTION -----");
         System.out.println("[1] Move");
         System.out.println("[2] Switch");
+        System.out.println("[3] Info");
     }
 
     public static void selectAction(Player player) {
         Scanner sc = new Scanner(System.in);
         System.out.printf("Select action : ");
-        int input = sc.nextInt(); // TODO: cant work
-        //int input = 1;
-        System.out.println("check");
+        int input = sc.nextInt();
         if (input == 1) {
             player.selectMonsterMove();
         } else if (input == 2) {
             player.switchActiveMonster();
+        } else if (input == 3) {
+            player.showMonsterAlive();
         }
-        sc.close();
     }
 }

@@ -1,7 +1,9 @@
 package com.monstersaku.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.lang.Runtime;
 
 import com.monstersaku.monsters.*;
 import com.monstersaku.monsters.move.*;
@@ -16,17 +18,14 @@ public class Config {
     private static Map<ElementEffKey, Double> mapOfElementEff = new Map<ElementEffKey, Double>();
 
     // GETTER
-    public static Map<Integer, Monster> getMapOfMonster() {
-        return mapOfMonster;
-    }
-    public static Map<Integer, Move> getMapOfMove() {
-        return mapOfMove;
-    }
-    public static Map<ElementEffKey, Double> getMapOfElementEff() {
-        return mapOfElementEff;
-    }
+    public static Map<Integer, Monster> getMapOfMonster() { return mapOfMonster; }
+    public static Map<Integer, Move> getMapOfMove() { return mapOfMove; }
+    public static Map<ElementEffKey, Double> getMapOfElementEff() { return mapOfElementEff; }
 
     // METHODS
+    public static void clearConsole() {
+        System.out.print("\033[H\033[2J");
+    }
     public static void setAllElementEff() {
         try {
             CSVReader reader = new CSVReader(new File(Config.class.getResource(fileOfElementEff).toURI()), ";");

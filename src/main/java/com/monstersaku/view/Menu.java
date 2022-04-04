@@ -25,7 +25,6 @@ public class Menu {
         } else if (input == 3) {
             exit();
         }
-        //sc.close();
     }
 
     public static void startGame() {

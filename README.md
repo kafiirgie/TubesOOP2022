@@ -6,11 +6,13 @@ Try running these commands:
 On linux:
 ```bash
 ./gradlew run
+./gradlew -q --console plain run
 ```
 
 On windows:
 ```cmd
 gradlew.bat run
+gradlew -q --console plain run  
 ```
 
 Notice that it will run the `Main.java` inside the `com.monstersaku` package.

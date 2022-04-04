@@ -21,3 +21,8 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+run {
+    standardInput = System.in
+    standardOutput = System.out
+}
