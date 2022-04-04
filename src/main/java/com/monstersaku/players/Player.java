@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.HashSet;
 
 import com.monstersaku.monsters.*;
-import com.monstersaku.monsters.move.NormalMove;
 import com.monstersaku.util.Config;
 
 public class Player {
@@ -18,6 +17,7 @@ public class Player {
     private List<Monster> monsters = new ArrayList<Monster>();
     private Monster activeMonster;
     private List<Monster> nonActiveMonsters = new ArrayList<Monster>();
+    private static Integer[] arrOfIdMonster;
 
     // CONSTRUCTOR
     public Player(int id, String name) {
@@ -26,10 +26,9 @@ public class Player {
         this.name = name;
 
         // SET random monster
-        Set<Integer> setOfIdMonster = getUniqueRandomInt(6, Config.getMapOfMonster().size());
-        Integer[] arrOfIdMonster = setOfIdMonster.toArray(new Integer[setOfIdMonster.size()]);
-        for (Integer idMonster : arrOfIdMonster) {
-            this.monsters.add(Config.getMapOfMonster().get(Integer.valueOf(idMonster)));
+        for (int i = (6*(id-1)); i < (6*id); i++) {
+            int idMonster = arrOfIdMonster[i];
+            this.monsters.add(Config.getMapOfMonster().get(idMonster+1));
         }
         
         // SET activeMonster
@@ -40,8 +39,24 @@ public class Player {
         this.nonActiveMonsters.remove(0);
     }
 
+    // GETTER
+    public String getName() { return this.name; }
+    public List<Monster> getMonsters() { return this.monsters; }
+    public Monster getActiveMonster() { return this.activeMonster; }
+    public List<Monster> getNonActiveMonsters() { return nonActiveMonsters; }
+
+    // SETTER
+    public void setName(String name) { this.name = name; }
+    public void setMonsters(List<Monster> monsters) { this.monsters = monsters; }
+    public void setActiveMonster(Monster activeMonster) { this.activeMonster = activeMonster; }
+    public void setNonActiveMonsters(List<Monster> nonActiveMonsters) { this.nonActiveMonsters = nonActiveMonsters; }
+
     // METHODS
-    public Set<Integer> getUniqueRandomInt(int size, int range) {
+    public static void setRandomIdMonster() { // there are minimum 12 monsters in configuration file
+        Set<Integer> setOfIdMonster = getUniqueRandomInt(12, Config.getMapOfMonster().size());
+        arrOfIdMonster = setOfIdMonster.toArray(new Integer[setOfIdMonster.size()]);
+    }
+    public static Set<Integer> getUniqueRandomInt(int size, int range) {
         Random random = new Random();
         Set<Integer> set = new HashSet<Integer>(size);
         while(set.size() < size) {
@@ -50,28 +65,47 @@ public class Player {
         assert set.size() == size;
         return set;
     }
-
-    public void selectMonsterMove() {
-        showMonsterMove();
+    public void activeMonsterDied() {
+        // delete active monster from monsters
+        for (Monster monster : monsters) {
+            if (monster.getName().equals(activeMonster.getName())) {
+                monsters.remove(monster);
+            }
+        }
+    }
+    public void selectActiveMonster() {     // if active monster died
+        showMonsterAlive();
         Scanner sc = new Scanner(System.in);
-        System.out.printf("Select move : ");
+        System.out.printf("Select monster : ");
         int input = sc.nextInt();
-        activeMonster.getMoves().get(input-1).doMove();
+        this.activeMonster = this.nonActiveMonsters.get(input-1);
+        this.nonActiveMonsters.remove(input-1);
         sc.close();
     }
     public void switchActiveMonster() {
-
-    }
-    public void showMonsterMove() {
-        for (int i = 0; i < activeMonster.getMoves().size(); i++) {
-            System.out.printf("[%d]. %s\n", i+1, activeMonster.getMoves().get(i).getMoveName());
-        }
+        showMonsterAlive();
+        Scanner sc = new Scanner(System.in);
+        System.out.printf("Select monster : ");
+        int input = sc.nextInt();
+        Monster temp = activeMonster;
+        this.activeMonster = this.nonActiveMonsters.get(input-1);
+        this.nonActiveMonsters.remove(input-1);
+        this.nonActiveMonsters.add(temp);
+        sc.close();
     }
     public void showMonsterAlive() {
-        System.out.printf("Your active monster : %s\n", activeMonster.getName());
-        for (int i = 0; i < nonActiveMonsters.size(); i++) {
-            System.out.printf("[%d]. %s\n", i+1, nonActiveMonsters.get(i).getName());
-            //TODO : alive condition not set
+        System.out.printf("Your inactive monsters: \n");
+        for (int i = 0; i < this.nonActiveMonsters.size(); i++) {
+            System.out.printf("[%d]. %s\n", i+1, this.nonActiveMonsters.get(i).getName());
         }
+    }
+
+    public void selectMonsterMove() {
+        this.activeMonster.showMonsterMove();
+        Scanner sc = new Scanner(System.in);
+        System.out.printf("Select move : ");
+        int input = sc.nextInt();
+        this.activeMonster.getMoves().get(input-1).doMove();
+        sc.close();
     }
 }

@@ -14,7 +14,7 @@ public class Game {
 
     public static void play() {
         try {
-            while (isGameRunning) {
+            //while (isGameRunning) {
                 System.out.flush();
                 
                 // SET GAME DATA
@@ -35,10 +35,12 @@ public class Game {
                     while (isCurrentTurn) {
                         if (id == 2) { playerTurn = player2; }
                         System.out.flush();
-                        // TODO : player play his turn
+                        if (!playerTurn.getActiveMonster().getIsAlive()) {
+                            playerTurn.activeMonsterDied();
+                            playerTurn.selectActiveMonster();
+                        }
                         showAction();
                         selectAction(playerTurn);
-                        
                         id++;
                         if (id > 2) { isCurrentTurn = false; }
                     }
@@ -46,7 +48,7 @@ public class Game {
                     // TODO : kondisi game berakhir
 
                 }
-            }
+            //}
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

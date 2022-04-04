@@ -12,7 +12,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     private final String name;
     private final List<ElementType> elements = new ArrayList<ElementType>();
     private Stats stats;
-    private List<Move> moves = new ArrayList<Move>();
+    private final List<Move> moves = new ArrayList<Move>();
     private boolean isAlive = true;
     private StatusConditionType status = null;
 
@@ -47,11 +47,17 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     public boolean getIsAlive() { return this.isAlive; }
     public StatusConditionType getStatus() { return this.status; }
 
+    // SETTER
+    //public void setStats() { return this.stats; }
+    public void setIsAlive(boolean isAlive) { this.isAlive = isAlive; }
+    public void setStatus(StatusConditionType status) { this.status = status; }
+
     // METHODS
-    
-    //addElement to monster
-    //addMove to monster
-    //showMonsterMoves
+    public void showMonsterMove() {
+        for (int i = 0; i < this.moves.size(); i++) {
+            System.out.printf("[%d]. %s\n", i+1, this.moves.get(i).getMoveName());
+        }
+    }
     //monster takedamage
 
     // Methods for Status Condition -> pake try catch(?)
