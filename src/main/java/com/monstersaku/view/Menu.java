@@ -1,7 +1,6 @@
 package com.monstersaku.view;
 
 import java.util.Scanner;
-import java.lang.Thread;
 
 public class Menu {
     public static void showWelcome() {
@@ -16,8 +15,8 @@ public class Menu {
     }
 
     public static void selectMenu() {
-        System.out.printf("Select : ");
         Scanner sc = new Scanner(System.in);
+        System.out.printf("Select : ");
         int input = sc.nextInt();
         if (input == 1) {
             startGame();
@@ -26,7 +25,7 @@ public class Menu {
         } else if (input == 3) {
             exit();
         }
-        sc.close();
+        //sc.close();
     }
 
     public static void startGame() {

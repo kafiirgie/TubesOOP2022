@@ -1,10 +1,9 @@
-package com.monstersaku;
+import java.util.Scanner;
 
 import com.monstersaku.view.*;
 
 public class Main {
     public static void main(String[] args) {
-        //Menu menu = new Menu();
         //System.out.flush();
         Menu.showWelcome();
         Menu.showStartupMenu();

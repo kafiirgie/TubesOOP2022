@@ -7,51 +7,45 @@ import com.monstersaku.util.*;
 import com.monstersaku.players.*;
 
 public class Game {
-    private static boolean isGameRunning = true;
     private static Player player1;
     private static Player player2;
-    //private static Player[] players = [player1, player2];
 
     public static void play() {
-        try {
-            //while (isGameRunning) {
-                System.out.flush();
-                
-                // SET GAME DATA
-                setupGameData();
-                System.out.println("Please wait...");
-                Thread.sleep(1000);
-                
-                // SET PLAYER
-                setupPlayer();
-                
-                // GAME ROUND
-                boolean isCurrentRound = true;
-                while (isCurrentRound) {
-                    // PLAYER TURN
-                    int id = 1;
-                    Player playerTurn = player1;
-                    boolean isCurrentTurn = true;
-                    while (isCurrentTurn) {
-                        if (id == 2) { playerTurn = player2; }
-                        System.out.flush();
-                        if (!playerTurn.getActiveMonster().getIsAlive()) {
-                            playerTurn.activeMonsterDied();
-                            playerTurn.selectActiveMonster();
-                        }
-                        showAction();
-                        selectAction(playerTurn);
-                        id++;
-                        if (id > 2) { isCurrentTurn = false; }
+        //try {
+            System.out.flush();
+            // SET GAME DATA
+            setupGameData();
+            System.out.println("Please wait...");
+            //Thread.sleep(1000);
+            // SET PLAYER
+            setupPlayer();
+            
+            // GAME
+            boolean isGameRunning = true;
+            while (isGameRunning) {
+                // ROUND
+                int id = 1;
+                Player playerTurn = player1;
+                boolean isRoundRunning = true;
+                while (isRoundRunning) {
+                    // TURN
+                    if (id == 2) { playerTurn = player2; }
+                    //System.out.flush();
+                    if (!playerTurn.getActiveMonster().getIsAlive()) {
+                        playerTurn.activeMonsterDied();
+                        playerTurn.selectActiveMonster();
                     }
-
-                    // TODO : kondisi game berakhir
-
+                    showAction();
+                    selectAction(playerTurn);
+                    id++;
+                    if (playerTurn.getMonsters().isEmpty()) { isGameRunning = false; break; } // game is end
+                    if (id > 2) { isRoundRunning = false; } // go to next round
                 }
-            //}
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+            }
+        //} catch (Exception e) {
+            //System.out.println("Game.play");
+            //System.out.println(e.getMessage());
+        //}
     } 
     
     public static void setupGameData() {
@@ -65,6 +59,7 @@ public class Game {
     }
 
     public static void setupPlayer() {
+        Player.setRandomIdMonster();
         Scanner sc = new Scanner(System.in);
         System.out.printf("Player 1 name : ");
         String playerName1 = sc.next();
@@ -84,7 +79,9 @@ public class Game {
     public static void selectAction(Player player) {
         Scanner sc = new Scanner(System.in);
         System.out.printf("Select action : ");
-        int input = sc.nextInt();
+        int input = sc.nextInt(); // TODO: cant work
+        //int input = 1;
+        System.out.println("check");
         if (input == 1) {
             player.selectMonsterMove();
         } else if (input == 2) {
