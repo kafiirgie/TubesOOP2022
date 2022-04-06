@@ -26,19 +26,24 @@ public class Game {
                 // ROUND
                 int id = 1;
                 Player playerTurn = player1;
+                Player playerOpponent = player2;
                 boolean isRoundRunning = true;
                 while (isRoundRunning) {
                     // TURN
-                    if (id == 2) { playerTurn = player2; }
-                    if (!playerTurn.getActiveMonster().getIsAlive()) {
-                        playerTurn.activeMonsterDied();
-                        playerTurn.selectActiveMonster();
-                    }
+                    if (id == 2) { playerTurn = player2; playerOpponent = player1; }
+                    // if (!playerTurn.getActiveMonster().getIsAlive()) {
+                    //     playerTurn.activeMonsterDied();
+                    //     playerTurn.selectActiveMonster();
+                    // }
+                    boolean isTurnRunning = true;
                     Config.clearConsole();
                     System.out.println("===== BEGINNING OF TURN =====");
                     System.out.println("Now is " + playerTurn.getName() + "'s turn");
-                    showAction();
-                    selectAction(playerTurn);
+                    while (isTurnRunning) {    
+                        showAction();
+                        int action = selectAction(playerTurn, playerOpponent);
+                        if (action == 1 | action == 2) { isTurnRunning = false; }
+                    }
                     System.out.println("===== END OF TURN =====");
                     id++;
                     if (playerTurn.getMonsters().isEmpty()) { isGameRunning = false; break; } // game is end
@@ -74,21 +79,26 @@ public class Game {
 
     public static void showAction() {
         System.out.println("----- ACTION -----");
-        System.out.println("[1] Move");
-        System.out.println("[2] Switch");
-        System.out.println("[3] Info");
+        System.out.println("[1] Move Monster");
+        System.out.println("[2] Switch Monster");
+        System.out.println("[3] Monster Info");
+        System.out.println("[4] Game Info");
     }
 
-    public static void selectAction(Player player) {
+    public static int selectAction(Player player1, Player player2) {
         Scanner sc = new Scanner(System.in);
         System.out.printf("Select action : ");
         int input = sc.nextInt();
         if (input == 1) {
-            player.selectMonsterMove();
+            player1.selectMonsterMove();
         } else if (input == 2) {
-            player.switchActiveMonster();
+            player1.switchActiveMonster();
         } else if (input == 3) {
-            player.showMonsterAlive();
+            player1.showMonsterInGameInfo();
+        } else if (input == 4) {
+            player1.showPlayerInfo();
+            player2.showPlayerInfo();
         }
+        return input;
     }
 }

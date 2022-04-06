@@ -53,6 +53,17 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     public void setStatus(StatusConditionType status) { this.status = status; }
 
     // METHODS
+    public void showMonsterInfo() {
+        System.out.println("Name     : ");
+        System.out.println(this.name);
+        System.out.println("Elements : ");
+        for (int i = 0; i < this.elements.size(); i++) {
+            System.out.printf("[%d] %s\n", i+1, this.elements.get(i));
+        }
+        System.out.println("Stats    : "); this.stats.showStats();
+        System.out.println("Moves    : "); this.showMonsterMove();
+
+    }
     public void showMonsterMove() {
         for (int i = 0; i < this.moves.size(); i++) {
             System.out.printf("[%d] %s\n", i+1, this.moves.get(i).getMoveName());
