@@ -48,7 +48,6 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     public StatusConditionType getStatus() { return this.status; }
 
     // SETTER
-    //public void setStats() { return this.stats; }
     public void setIsAlive(boolean isAlive) { this.isAlive = isAlive; }
     public void setStatus(StatusConditionType status) { this.status = status; }
 
@@ -69,19 +68,22 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
             System.out.printf("[%d] %s\n", i+1, this.moves.get(i).getMoveName());
         }
     }
-    //monster takedamage
+    
+    public void takeDamage(double damage) {
+        // TODO:implement take damage
+    }
 
     // Methods for Status Condition -> pake try catch(?)
     public void burnStatusActive() {
-        // soon
+        // TODO:implement burn status
     }
     public void poisonStatusActive() {
-        // soon
+        // TODO:implement poison status
     }
     public void sleepStatusActive() {
-        // soon
+        // TODO:implement sleep status
     }
     public void paralyzeStatusActive() {
-        // soon
+        // TODO:implement paralyze status
     }
 }

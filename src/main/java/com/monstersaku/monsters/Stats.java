@@ -2,6 +2,7 @@ package com.monstersaku.monsters;
 
 public class Stats {
     // ATTRIBUTES
+    private final double maxHealthPoint;
     private double healthPoint;
     private double attack;
     private double defense;
@@ -11,6 +12,7 @@ public class Stats {
 
     // CONSTRUCTOR
     public Stats(double healthPoint, double attack, double defense, double specialAttack, double specialDefense, double speed) {
+        this.maxHealthPoint = healthPoint;
         this.healthPoint = healthPoint;
         this.attack = attack;
         this.defense = defense;
@@ -28,6 +30,7 @@ public class Stats {
     public void setSpeed(double speed) { this.speed = speed; }
 
     // GETTER
+    public double getMaxHealthPoint() { return this.maxHealthPoint; }
     public double getHealthPoint() { return this.healthPoint; }
     public double getAttack() { return this.attack; }
     public double getDefense() { return this.defense; }
@@ -37,12 +40,13 @@ public class Stats {
 
     // METHODS
     public void showStats() {
-        System.out.println("Health Point    : " + this.healthPoint);
-        System.out.println("Attack          : " + this.attack);
-        System.out.println("Defense         : " + this.defense);
-        System.out.println("Special Attack  : " + this.specialAttack);
-        System.out.println("Special Defense : " + this.specialDefense);
-        System.out.println("Speed           : " + this.speed);
+        System.out.println("Max Health Point : " + this.maxHealthPoint);
+        System.out.println("Health Point     : " + this.healthPoint);
+        System.out.println("Attack           : " + this.attack);
+        System.out.println("Defense          : " + this.defense);
+        System.out.println("Special Attack   : " + this.specialAttack);
+        System.out.println("Special Defense  : " + this.specialDefense);
+        System.out.println("Speed            : " + this.speed);
     }
     //public int getFinalHealthPoint() {}
 }

@@ -22,7 +22,7 @@ public class Menu {
             startGame();
         } else if (input == 2) {
             help();
-        } else if (input == 3) {
+        } else if (input == 0) {
             exit();
         }
     }

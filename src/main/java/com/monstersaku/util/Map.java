@@ -53,6 +53,12 @@ public class Map<K, V> {
             KeyValue<K, V> newContent = new KeyValue<K, V>(key, value);
             contents.add(newContent);
             this.size += 1;
+        } else {
+            for (KeyValue<K,V> content : contents) {
+                if (content.getKey() == key) {
+                    content.setValue(value);
+                }
+            }
         }
     }
 

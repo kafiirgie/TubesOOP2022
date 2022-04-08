@@ -10,6 +10,10 @@ public class ElementEffKey {
         this.source = ElementType.valueOf(source);
         this.target = ElementType.valueOf(target);
     }
+    public ElementEffKey(ElementType source, ElementType target){
+        this.source = source;
+        this.target = target;
+    }
 
     // GETTER
     public ElementType getSource() { return this.source; }

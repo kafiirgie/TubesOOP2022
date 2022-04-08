@@ -12,11 +12,9 @@ public class Game {
 
     public static void play() {
         //try {
-            //System.out.flush();
             // SET GAME DATA
             setupGameData();
-            System.out.println("Please wait...");
-            //Thread.sleep(1000);
+            System.out.printf("Please wait"); loading();
             // SET PLAYER
             setupPlayer();
             
@@ -54,7 +52,19 @@ public class Game {
             //System.out.println("Game.play");
             //System.out.println(e.getMessage());
         //}
-    } 
+    }
+    
+    public static void loading() {
+        try {
+            for (int i = 0; i < 4; i++) {
+                Thread.sleep(500);
+                System.out.printf(". ");
+            }
+            System.out.printf("\n");
+        } catch (Exception e) {
+            System.out.println("[Exception in loading] : " + e.getMessage());
+        }
+    }
     
     public static void setupGameData() {
         try {
