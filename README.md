@@ -3,15 +3,14 @@
 ## How to Run
 This project using gradle as the build tools.
   1. Try running these commands to run the program.
-    On linux:
-    ```bash
-    ./gradlew -q --console plain run
-    ```
-
-    On windows:
-    ```cmd
-    gradlew -q --console plain run
-    ```
+      a. On linux:
+      ```bash
+      ./gradlew -q --console plain run
+      ```
+      b. On windows:
+      ```cmd
+      gradlew -q --console plain run
+      ```
   2. Wait for some seconds till the program started.
   3. Enjoy!! 
 
