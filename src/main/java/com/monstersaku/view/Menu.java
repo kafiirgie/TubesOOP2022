@@ -32,13 +32,13 @@ public class Menu {
 
     public static void startGame() {
         Config.clearConsole();
-        System.out.println("\n===== GAME =====\n");
+        System.out.println("===== GAME =====\n");
         Game.play();
     }
 
     public static void help() {
         Config.clearConsole();
-        System.out.println("\n===== HELP =====\n");
+        System.out.println("===== HELP =====\n");
         System.out.println("hi, what can we help you?");
         System.out.println();
         // TODO:create help text
@@ -46,7 +46,7 @@ public class Menu {
     
     public static void exit() {
         Config.clearConsole();
-        System.out.println("\n===== EXIT =====\n");
+        System.out.println("===== EXIT =====\n");
         System.out.printf("processing to exit from the game"); Config.loading();
         Exit.exitCredits();
     }

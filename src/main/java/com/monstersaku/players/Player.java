@@ -97,6 +97,7 @@ public class Player {
     
     // [1] Move Monster
     public int selectMonsterMove() {
+        System.out.println("\n[ SELECT MOVE ]");
         this.activeMonster.showMonsterMove();
         Scanner sc = new Scanner(System.in);
         System.out.printf("Select move : ");
@@ -106,6 +107,7 @@ public class Player {
     
     // [2] Switch Monster
     public void switchActiveMonster() {
+        System.out.println("\n[ SWITCH MONSTER ]");
         showNonActiveMonster();
         if (this.nonActiveMonsters.size() > 0) {
             Scanner sc = new Scanner(System.in);
@@ -122,6 +124,7 @@ public class Player {
     
     // [3] Show Monster Info
     public void showMonsterInGameInfo() {
+        System.out.println("\n[ MONSTER INFO ]");
         this.showAliveMonsters();
         Scanner sc = new Scanner(System.in);
         System.out.printf("Select monster to inspect : ");

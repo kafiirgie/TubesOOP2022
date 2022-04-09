@@ -40,13 +40,13 @@ public class Stats {
 
     // METHODS
     public void showStats() {
-        System.out.println("Max Health Point : " + this.maxHealthPoint);
-        System.out.println("Health Point     : " + this.healthPoint);
-        System.out.println("Attack           : " + this.attack);
-        System.out.println("Defense          : " + this.defense);
-        System.out.println("Special Attack   : " + this.specialAttack);
-        System.out.println("Special Defense  : " + this.specialDefense);
-        System.out.println("Speed            : " + this.speed);
+        System.out.println("> Max Health Point : " + this.maxHealthPoint);
+        System.out.println("> Health Point     : " + this.healthPoint);
+        System.out.println("> Attack           : " + this.attack);
+        System.out.println("> Defense          : " + this.defense);
+        System.out.println("> Special Attack   : " + this.specialAttack);
+        System.out.println("> Special Defense  : " + this.specialDefense);
+        System.out.println("> Speed            : " + this.speed);
     }
     //public int getFinalHealthPoint() {}
 }

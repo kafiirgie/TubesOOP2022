@@ -13,6 +13,7 @@ public class Game {
     private static Player player2;
     private static Player winnerPlayer;
     private static boolean isGameRunning = true;
+    private static int countRound = 1;
 
     public static void play() {
             // SET GAME DATA
@@ -33,7 +34,6 @@ public class Game {
                 
                 // ROUND STARTED
                 boolean isRoundRunning = true;
-                int countRound = 1;
                 while (isRoundRunning) {
                     // Check the id, is now player 2 turn or not
                     if (id == 2) { playerTurn = player2; playerOpponent = player1; }
@@ -82,6 +82,7 @@ public class Game {
                         if (moveAction >= 0) { isTurnRunning = false; }
                     }
                     System.out.println("\n===== END OF TURN =====");
+                    Config.loading();
 
                     // Handle SLEEP status (Reduce sleep counter)
                     for (Monster monster : playerTurn.getMonsters()) {
@@ -95,8 +96,9 @@ public class Game {
                     }
                     
                     id++; // Go to next player
-                    if (id > 2) { isRoundRunning = false; countRound++; } // Round is end, go to next round
+                    if (id > 2) { isRoundRunning = false; } // Round is end, go to next round
                 }
+                countRound++;
                 System.out.printf("\n##### ROUND %d IS END #####\n", countRound-1);
 
                 // HANDLE PLAYERS MOVE (based on priority and speed)
@@ -123,7 +125,7 @@ public class Game {
                         } else {
                             System.out.printf("-> Player %s monster speed equals to player %s monster speed\n", player1.getName(), player2.getName());
                             // Move executed by random
-                            System.out.println("Move players executed by random");
+                            System.out.println("   -> Move players executed by random");
                             Random r = new Random();
                             int player = r.nextInt(2) + 1;
                             if (player == 1) {
@@ -136,18 +138,26 @@ public class Game {
                     // Executed players move by the sequence
                     if (player1MoveFirst) {
                         playerActionMove(movePlayers, 1);
-                        handlePlayersActiveMonsterDied();
-                        isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
-                        playerActionMove(movePlayers, 2);
-                        handlePlayersActiveMonsterDied();
-                        isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
+                        if (player2.getActiveMonster().getIsAlive()) {
+                            playerActionMove(movePlayers, 2);
+                            handlePlayersActiveMonsterDied();
+                            isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
+                        } else {
+                            handlePlayersActiveMonsterDied();
+                            System.out.printf("\nPlayer %s active monster died, can't do move\n", player2.getName());
+                            isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
+                        }
                     } else {
                         playerActionMove(movePlayers, 2);
-                        handlePlayersActiveMonsterDied();
-                        isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
-                        playerActionMove(movePlayers, 1);
-                        handlePlayersActiveMonsterDied();
-                        isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
+                        if (player1.getActiveMonster().getIsAlive()) {
+                            playerActionMove(movePlayers, 1);
+                            handlePlayersActiveMonsterDied();
+                            isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
+                        } else {
+                            handlePlayersActiveMonsterDied();
+                            System.out.printf("\nPlayer %s active monster died, can't do move\n", player1.getName());
+                            isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
+                        }
                     }
                 } else if (movePlayers[0] > 0 && movePlayers[1] <= 0) {  // only player 1 do move
                     System.out.printf("\nOnly player %s choose to move monster\n", player1.getName());
@@ -170,6 +180,9 @@ public class Game {
                 handlePlayersActiveMonsterDied();
                 // CHECK IS GAME STILL RUNNING
                 isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
+                
+                System.out.printf("\ngoing to next round");
+                Config.loading();
             }
             
             // END GAME - SHOW WINNER
@@ -224,6 +237,7 @@ public class Game {
         } else if (input == 3) {
             player1.showMonsterInGameInfo();    // move < 0 indicates player choose show monster or game info
         } else if (input == 4) {
+            System.out.println("\n[ GAME INFO ]");
             player1.showPlayerInfo();           // move < 0 indicates player choose show monster or game info
             player2.showPlayerInfo();
         }
@@ -234,12 +248,12 @@ public class Game {
         if (id == 1) {
             Monster monster = player1.getActiveMonster();
             Monster monsterTarget = player2.getActiveMonster();
-            System.out.printf("[Player %s] : %s do %s move\n", player1.getName(), monster.getName(), monster.getMoves().get(movePlayers[0]-1).getMoveName());
+            System.out.printf("\n[Player %s] : %s do %s move\n", player1.getName(), monster.getName(), monster.getMoves().get(movePlayers[0]-1).getMoveName());
             monster.getMoves().get(movePlayers[0]-1).doMove(monster, monsterTarget);
         } else if (id == 2) {
             Monster monster = player2.getActiveMonster();
             Monster monsterTarget = player1.getActiveMonster();
-            System.out.printf("[Player %s] : %s do %s move\n", player2.getName(), monster.getName(), monster.getMoves().get(movePlayers[1]-1).getMoveName());
+            System.out.printf("\n[Player %s] : %s do %s move\n", player2.getName(), monster.getName(), monster.getMoves().get(movePlayers[1]-1).getMoveName());
             monster.getMoves().get(movePlayers[1]-1).doMove(monster, monsterTarget);
         }
     }

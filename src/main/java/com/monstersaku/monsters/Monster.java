@@ -60,11 +60,11 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
 
     // METHODS
     public void showMonsterInfo() {
-        System.out.println("Name     : ");
+        System.out.printf("Name     :  ");
         System.out.println(this.name);
         System.out.println("Elements : ");
         for (int i = 0; i < this.elements.size(); i++) {
-            System.out.printf("[%d] %s\n", i+1, this.elements.get(i));
+            System.out.printf("> [%d] %s\n", i+1, this.elements.get(i));
         }
         System.out.println("Stats    : "); this.stats.showStats();
         System.out.println("Moves    : "); this.showMonsterMove();
@@ -72,12 +72,12 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     }
     public void showMonsterMove() {
         for (int i = 0; i < this.moves.size(); i++) {
-            System.out.printf("[%d] %s\n", i+1, this.moves.get(i).getMoveName());
+            System.out.printf("> [%d] %s\n", i+1, this.moves.get(i).getMoveName());
         }
     }
     
     public void takeDamage(double damage) {
-        System.out.printf("\n%s got damage %d points %f\n", this.name, damage);
+        System.out.printf("\n%s got damage %f points\n", this.name, damage);
         double damagedHealthPoint = this.stats.getHealthPoint() - damage;
         if (damagedHealthPoint > 0) {
             this.stats.setHealthPoint(damagedHealthPoint);
