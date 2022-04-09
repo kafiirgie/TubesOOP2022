@@ -38,7 +38,7 @@ public class DefaultMove extends Move {
             // Calculate damage
             System.out.println("calculating damage...");
             double damage = calculateDamage(monster, monsterTarget);
-            monsterTarget.takeDamage(damage); // TODO:monsterTarget take damage
+            monsterTarget.takeDamage(damage);
         } else {
             monster.setIsAlive(false);
             System.out.println("monster died X_X");

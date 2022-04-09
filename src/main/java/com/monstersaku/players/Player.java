@@ -56,8 +56,6 @@ public class Player {
     public static void setRandomIdMonster() { // there are minimum 12 monsters in configuration file
         Set<Integer> setOfIdMonster = getUniqueRandomInt(12, Config.getMapOfMonster().size());
         arrOfIdMonster = setOfIdMonster.toArray(new Integer[setOfIdMonster.size()]);
-        
-        System.out.println(setOfIdMonster); System.out.println("deleted soon [Player.java]");
     }
     public static Set<Integer> getUniqueRandomInt(int size, int range) {
         Random random = new Random();
@@ -70,7 +68,7 @@ public class Player {
     }
 
     public void activeMonsterDied() {
-        // delete active monster from monsters
+        // Remove active monster from monsters
         System.out.printf("%s's active monster died : %s\n", this.name, this.activeMonster.getName());
         int removedId = -1;
         for (int i = 0; i < monsters.size(); i++) {
@@ -79,17 +77,19 @@ public class Player {
             }
         }
         this.monsters.remove(removedId);
-        // change active monster
+        // Change active monster
         System.out.println("Select another active monster");
         this.selectActiveMonster();
     }
     public void selectActiveMonster() {     // if active monster died
         showNonActiveMonster();
-        Scanner sc = new Scanner(System.in);
-        System.out.printf("Select monster : ");
-        int input = sc.nextInt();
-        this.activeMonster = this.nonActiveMonsters.get(input-1);
-        this.nonActiveMonsters.remove(input-1);
+        if (this.nonActiveMonsters.size() > 0) {
+            Scanner sc = new Scanner(System.in);
+            System.out.printf("Select monster : ");
+            int input = sc.nextInt();
+            this.activeMonster = this.nonActiveMonsters.get(input-1);
+            this.nonActiveMonsters.remove(input-1);
+        }
     }
     
     // [1] Move Monster

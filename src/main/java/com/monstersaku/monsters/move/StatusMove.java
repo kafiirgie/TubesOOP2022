@@ -46,9 +46,6 @@ public class StatusMove extends Move {
 
         // TODO:implement stats buff modification
         if (super.getTarget() == MoveTarget.OWN) {
-            // if (this.status != null) {
-            //     monster.setStatus(status);
-            // }
             if (this.status == StatusConditionType.BURN) {
                 monster.burnStatusActive();
             } else if (this.status == StatusConditionType.POISON) {
@@ -65,9 +62,6 @@ public class StatusMove extends Move {
             monster.getStats().setSpecialDefense(monster.getStats().getSpecialDefense() + this.effectSpecialDefense);
             monster.getStats().setSpeed(monster.getStats().getSpeed() + this.effectSpeed);
         } else if (super.getTarget() == MoveTarget.ENEMY) {
-            // if (this.status != null) {
-            //     monsterTarget.setStatus(status);
-            // }
             if (this.status == StatusConditionType.BURN) {
                 monsterTarget.burnStatusActive();
             } else if (this.status == StatusConditionType.POISON) {
