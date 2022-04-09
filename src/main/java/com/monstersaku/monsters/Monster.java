@@ -102,7 +102,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
         // Random sleep counter
         Random r = new Random();
         this.sleepCounter = r.nextInt(7) + 1;
-        // TODO:implementation for 'monster cant move' in Game.java
+        // Implementation for 'monster cant move' in Game.java
     }
     public void paralyzeStatusActive() {
         this.status = StatusConditionType.PARALYZE;

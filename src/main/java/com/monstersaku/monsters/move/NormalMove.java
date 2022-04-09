@@ -51,7 +51,7 @@ public class NormalMove extends Move{
         double effectivity = Config.getMapOfElementEff().get(key);
         // Burn Factor
         double burn;
-        if (monster.getStatus().equals(StatusConditionType.BURN)) {
+        if (monster.getStatus() == StatusConditionType.BURN) {
             burn = 0.5;
         } else {
             burn = 1;

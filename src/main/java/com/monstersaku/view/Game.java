@@ -17,8 +17,8 @@ public class Game {
     public static void play() {
         //try {
             // SET GAME DATA
-            setupGameData();
             System.out.printf("Please wait"); loading();
+            setupGameData();
             // SET PLAYER
             setupPlayer();
             
@@ -47,14 +47,14 @@ public class Game {
                         int moveAction = selectAction(playerTurn, playerOpponent);
                         movePlayers[id-1] = moveAction;
                         // handle sleep status
-                        if (moveAction > 0 && playerTurn.getActiveMonster().getStatus().equals(StatusConditionType.SLEEP)) {
+                        if (moveAction > 0 && playerTurn.getActiveMonster().getStatus() == StatusConditionType.SLEEP) {
                             System.out.println(playerTurn.getActiveMonster().getName() + " has SLEEP status condition.");
                             System.out.println(playerTurn.getActiveMonster().getName() + " can't do move for this turn.");
                             System.out.println("Select another monster");
                             playerTurn.switchActiveMonster();
                         }
                         // handle paralyze status
-                        if (moveAction > 0 && playerTurn.getActiveMonster().getStatus().equals(StatusConditionType.PARALYZE)) {
+                        if (moveAction > 0 && playerTurn.getActiveMonster().getStatus() == StatusConditionType.PARALYZE) {
                             System.out.println(playerTurn.getActiveMonster().getName() + " has PARALYZE status condition.");
                             Random r = new Random();
                             int random = r.nextInt(4);
@@ -78,7 +78,7 @@ public class Game {
                     System.out.println("===== END OF TURN =====");
                     // handle sleep status (reduce sleep counter)
                     for (Monster monster : playerTurn.getMonsters()) {
-                        if (monster.getStatus().equals(StatusConditionType.SLEEP)) {
+                        if (monster.getStatus() == StatusConditionType.SLEEP) {
                             if (monster.getSleepCounter() > 0) {
                                 monster.setSleepCounter(monster.getSleepCounter() - 1); // reduce sleep counter
                             } else {
@@ -140,17 +140,17 @@ public class Game {
                 }
                 
                 // AFTER DAMAGE CALCULATION
-                if (player1.getActiveMonster().getStatus().equals(StatusConditionType.BURN)) {
+                if (player1.getActiveMonster().getStatus() == StatusConditionType.BURN) {
                     double damage = Math.floor(player1.getActiveMonster().getStats().getMaxHealthPoint() / 8);
                     player1.getActiveMonster().takeDamage(damage);
-                } else if (player1.getActiveMonster().getStatus().equals(StatusConditionType.POISON)) {
+                } else if (player1.getActiveMonster().getStatus() == StatusConditionType.POISON) {
                     double damage = Math.floor(player1.getActiveMonster().getStats().getMaxHealthPoint() / 16);
                     player1.getActiveMonster().takeDamage(damage);
                 }
-                if (player2.getActiveMonster().getStatus().equals(StatusConditionType.BURN)) {
+                if (player2.getActiveMonster().getStatus() == StatusConditionType.BURN) {
                     double damage = Math.floor(player2.getActiveMonster().getStats().getMaxHealthPoint() / 8);
                     player2.getActiveMonster().takeDamage(damage);
-                } else if (player2.getActiveMonster().getStatus().equals(StatusConditionType.POISON)) {
+                } else if (player2.getActiveMonster().getStatus() == StatusConditionType.POISON) {
                     double damage = Math.floor(player2.getActiveMonster().getStats().getMaxHealthPoint() / 16);
                     player2.getActiveMonster().takeDamage(damage);
                 }

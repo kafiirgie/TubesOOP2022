@@ -71,11 +71,13 @@ public class Player {
     public void activeMonsterDied() {
         // delete active monster from monsters
         System.out.printf("%s's active monster died : %s\n", this.name, this.activeMonster.getName());
-        for (Monster monster : this.monsters) {
-            if (monster.getName().equals(this.activeMonster.getName())) {
-                this.monsters.remove(monster);
+        int removedId = -1;
+        for (int i = 0; i < monsters.size(); i++) {
+            if (monsters.get(i).getName() == this.activeMonster.getName()) {
+                removedId = i;
             }
         }
+        this.monsters.remove(removedId);
         // change active monster
         System.out.println("Select another active monster");
         this.selectActiveMonster();
@@ -125,7 +127,8 @@ public class Player {
     public void showPlayerInfo() {
         System.out.printf("PLAYER %d INFO\n", this.id);
         System.out.printf("Player name : %s\n", this.name);
-        this.showAliveMonsters();
+        this.showActiveMonster();
+        this.showNonActiveMonster();
     }
     
     public void showAliveMonsters() {

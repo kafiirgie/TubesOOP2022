@@ -45,17 +45,17 @@ public class StatusMove extends Move {
         System.out.println("Using status move");
 
         // TODO:implement stats buff modification
-        if (super.getTarget().equals(MoveTarget.OWN)) {
+        if (super.getTarget() == MoveTarget.OWN) {
             // if (this.status != null) {
             //     monster.setStatus(status);
             // }
-            if (this.status.equals(StatusConditionType.BURN)) {
+            if (this.status == StatusConditionType.BURN) {
                 monster.burnStatusActive();
-            } else if (this.status.equals(StatusConditionType.POISON)) {
+            } else if (this.status == StatusConditionType.POISON) {
                 monster.poisonStatusActive();
-            } else if (this.status.equals(StatusConditionType.SLEEP)) {
+            } else if (this.status == StatusConditionType.SLEEP) {
                 monster.sleepStatusActive();
-            } else if (this.status.equals(StatusConditionType.PARALYZE)) {
+            } else if (this.status == StatusConditionType.PARALYZE) {
                 monster.paralyzeStatusActive();
             }
             monster.getStats().setHealthPoint(monster.getStats().getHealthPoint() + this.effectHealthPoint);
@@ -64,10 +64,19 @@ public class StatusMove extends Move {
             monster.getStats().setSpecialAttack(monster.getStats().getSpecialAttack() + this.effectSpecialAttack);
             monster.getStats().setSpecialDefense(monster.getStats().getSpecialDefense() + this.effectSpecialDefense);
             monster.getStats().setSpeed(monster.getStats().getSpeed() + this.effectSpeed);
-        } else if (super.getTarget().equals(MoveTarget.ENEMY)) {
+        } else if (super.getTarget() == MoveTarget.ENEMY) {
             // if (this.status != null) {
             //     monsterTarget.setStatus(status);
             // }
+            if (this.status == StatusConditionType.BURN) {
+                monsterTarget.burnStatusActive();
+            } else if (this.status == StatusConditionType.POISON) {
+                monsterTarget.poisonStatusActive();
+            } else if (this.status == StatusConditionType.SLEEP) {
+                monsterTarget.sleepStatusActive();
+            } else if (this.status == StatusConditionType.PARALYZE) {
+                monsterTarget.paralyzeStatusActive();
+            }
             monsterTarget.getStats().setHealthPoint(monsterTarget.getStats().getHealthPoint() + this.effectHealthPoint);
             monsterTarget.getStats().setAttack(monsterTarget.getStats().getAttack() + this.effectAttack);
             monsterTarget.getStats().setDefense(monsterTarget.getStats().getDefense() + this.effectDefense);

@@ -41,7 +41,7 @@ public class Map<K, V> {
     public boolean containsKey(K key) {
         boolean retValue = false;
         for (KeyValue<K,V> content : contents) {
-            if (content.getKey() == key) {
+            if (content.getKey().equals(key)) {
                 retValue = true;
             }
         }
@@ -55,7 +55,7 @@ public class Map<K, V> {
             this.size += 1;
         } else {
             for (KeyValue<K,V> content : contents) {
-                if (content.getKey() == key) {
+                if (content.getKey().equals(key)) {
                     content.setValue(value);
                 }
             }
@@ -65,8 +65,8 @@ public class Map<K, V> {
     public V get(K key) {
         if (containsKey(key)) {
             KeyValue<K, V> foundContent = new KeyValue<K, V>(null, null);
-            for (KeyValue<K,V> content : contents) {
-                if (content.getKey() == key) {
+            for (KeyValue<K, V> content : contents) {
+                if (content.getKey().equals(key)) {
                     foundContent = content;
                     break;
                 }

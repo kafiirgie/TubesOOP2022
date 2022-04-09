@@ -36,6 +36,12 @@ public class Config {
                 Double effectivity = Double.valueOf(line[2]);
                 mapOfElementEff.put(key, effectivity);
             }
+            ElementEffKey k1 = new ElementEffKey("NORMAL", "FIRE");
+            ElementEffKey k2 = new ElementEffKey("NORMAL", "FIRE");
+            System.out.println(k1.equals(k2));
+            System.out.println(k1.getSource());
+            System.out.println(k1.getTarget());
+            System.out.println(mapOfElementEff.get(k1));
         } catch (Exception e) {
             System.out.println("Can't set element effectivity : " + e.getMessage());
         }
