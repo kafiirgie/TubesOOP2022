@@ -1,19 +1,20 @@
 # IF2212 Project | MONSTERSAKU
 
 ## How to Run
-This project using gradle as the build tools. Try running these commands to run the program.
+This project using gradle as the build tools.
+  1. Try running these commands to run the program.
+    On linux:
+    ```bash
+    ./gradlew -q --console plain run
+    ```
 
-On linux:
-```bash
-./gradlew -q --console plain run
-```
+    On windows:
+    ```cmd
+    gradlew -q --console plain run
+    ```
+  2. Wait for some seconds till the program started.
+  3. Enjoy!! 
 
-On windows:
-```cmd
-gradlew -q --console plain run  
-```
-
-You can explore more about gradle [here](https://guides.gradle.org/creating-new-gradle-builds/)
 
 ## Implemented
   1. Inheritance
