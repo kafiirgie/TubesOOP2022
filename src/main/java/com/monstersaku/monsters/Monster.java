@@ -77,10 +77,14 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     }
     
     public void takeDamage(double damage) {
+        System.out.printf("\n%s got damage %d points %f\n", this.name, damage);
         double damagedHealthPoint = this.stats.getHealthPoint() - damage;
-        this.stats.setHealthPoint(damagedHealthPoint);
-        if (damagedHealthPoint <= 0) {
+        if (damagedHealthPoint > 0) {
+            this.stats.setHealthPoint(damagedHealthPoint);
+            System.out.printf("%s current health point is %f\n", this.name, damagedHealthPoint);
+        } else {
             this.isAlive = false;
+            System.out.printf("%s died\n", this.name);
         }
     }
 

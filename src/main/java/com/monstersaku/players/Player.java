@@ -69,7 +69,7 @@ public class Player {
 
     public void activeMonsterDied() {
         // Remove active monster from monsters
-        System.out.printf("%s's active monster died : %s\n", this.name, this.activeMonster.getName());
+        System.out.printf("\n%s's active monster died : %s\n", this.name, this.activeMonster.getName());
         int removedId = -1;
         for (int i = 0; i < monsters.size(); i++) {
             if (monsters.get(i).getName() == this.activeMonster.getName()) {
@@ -89,6 +89,9 @@ public class Player {
             int input = sc.nextInt();
             this.activeMonster = this.nonActiveMonsters.get(input-1);
             this.nonActiveMonsters.remove(input-1);
+        } else {
+            System.out.println("All monsters already died");
+            System.out.println("The game is end");
         }
     }
     
@@ -112,6 +115,8 @@ public class Player {
             this.activeMonster = this.nonActiveMonsters.get(input-1);
             this.nonActiveMonsters.remove(input-1);
             this.nonActiveMonsters.add(temp);
+        } else {
+            System.out.println("Can't do switch monster");
         }
     }
     
