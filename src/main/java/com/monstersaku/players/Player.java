@@ -56,7 +56,8 @@ public class Player {
     public static void setRandomIdMonster() { // there are minimum 12 monsters in configuration file
         Set<Integer> setOfIdMonster = getUniqueRandomInt(12, Config.getMapOfMonster().size());
         arrOfIdMonster = setOfIdMonster.toArray(new Integer[setOfIdMonster.size()]);
-        System.out.println(setOfIdMonster);
+        
+        System.out.println(setOfIdMonster); System.out.println("deleted soon [Player.java]");
     }
     public static Set<Integer> getUniqueRandomInt(int size, int range) {
         Random random = new Random();

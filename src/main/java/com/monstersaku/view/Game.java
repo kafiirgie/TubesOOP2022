@@ -1,13 +1,12 @@
 package com.monstersaku.view;
 
 import java.util.Scanner;
-import java.lang.Thread;
 import java.util.Random;
 
-import com.monstersaku.util.*;
+import com.monstersaku.util.Config;
 import com.monstersaku.monsters.Monster;
 import com.monstersaku.monsters.statuscondition.StatusConditionType;
-import com.monstersaku.players.*;
+import com.monstersaku.players.Player;
 
 public class Game {
     private static Player player1;
@@ -15,45 +14,50 @@ public class Game {
     private static Player winnerPlayer;
 
     public static void play() {
-        //try {
             // SET GAME DATA
-            System.out.printf("Please wait"); loading();
+            System.out.printf("please wait"); Config.loading();
             setupGameData();
+
             // SET PLAYER
             setupPlayer();
             
-            // GAME
+            // GAME STARTED
             boolean isGameRunning = true;
             while (isGameRunning) {
-                // ROUND
+                // Stores player 1 and player 2 move selection
+                int[] movePlayers = {-1, -1};
+                // Initial round started with player 1
                 int id = 1;
-                Player playerTurn = player1;
-                Player playerOpponent = player2;
-                int[] movePlayers = {-1, -1}; // stores player 1 and player 2 move selection
+                Player playerTurn = player1; Player playerOpponent = player2;
+                
+                // ROUND STARTED
                 boolean isRoundRunning = true;
+                int countRound = 1;
                 while (isRoundRunning) {
-                    // TURN
+                    // Check the id, is now player 2 turn or not
                     if (id == 2) { playerTurn = player2; playerOpponent = player1; }
-                    // if (!playerTurn.getActiveMonster().getIsAlive()) {
-                    //     playerTurn.activeMonsterDied();
-                    //     playerTurn.selectActiveMonster();
-                    // }
-                    boolean isTurnRunning = true;
+                    // Setup display
                     Config.clearConsole();
-                    System.out.println("===== BEGINNING OF TURN =====");
-                    System.out.println("Now is " + playerTurn.getName() + "'s turn");
+                    System.out.printf("##### ROUND %d #####\n", countRound);
+                    
+                    // TURN STARTED
+                    boolean isTurnRunning = true;
                     while (isTurnRunning) {    
+                        // Setup display
+                        System.out.println("\n===== BEGINNING OF TURN =====");
+                        System.out.println("Now is " + playerTurn.getName() + "'s turn\n");
+                        // Selecting action
                         showAction();
                         int moveAction = selectAction(playerTurn, playerOpponent);
                         movePlayers[id-1] = moveAction;
-                        // handle sleep status
+                        // Handle SLEEP status (is monster can do move or not)
                         if (moveAction > 0 && playerTurn.getActiveMonster().getStatus() == StatusConditionType.SLEEP) {
                             System.out.println(playerTurn.getActiveMonster().getName() + " has SLEEP status condition.");
                             System.out.println(playerTurn.getActiveMonster().getName() + " can't do move for this turn.");
                             System.out.println("Select another monster");
                             playerTurn.switchActiveMonster();
                         }
-                        // handle paralyze status
+                        // Handle PARALYZE status (is monster can do move or not)
                         if (moveAction > 0 && playerTurn.getActiveMonster().getStatus() == StatusConditionType.PARALYZE) {
                             System.out.println(playerTurn.getActiveMonster().getName() + " has PARALYZE status condition.");
                             Random r = new Random();
@@ -65,18 +69,19 @@ public class Game {
                                 System.out.println(playerTurn.getActiveMonster().getName() + " still can do move.");
                             }
                         }
-                        // check move amunition
+                        // Check move amunition
                         if (moveAction > 0 && playerTurn.getActiveMonster().getMoves().get(moveAction-1).getAmmunition() < 1) {
                             System.out.println("Oopss, " + playerTurn.getActiveMonster().getName() + " can't do this move. This move is out of amunition");
                             playerTurn.getActiveMonster().getMoves().remove(moveAction-1);
                             movePlayers[id-1] = -1;
                             System.out.println("You can select another action");
                         }
-                        // end of turn (player choose move or switch)
-                        if (moveAction >= 0 ) { isTurnRunning = false; }
+                        // End of turn (player choose move or switch)
+                        if (moveAction >= 0) { isTurnRunning = false; }
                     }
                     System.out.println("===== END OF TURN =====");
-                    // handle sleep status (reduce sleep counter)
+
+                    // Handle SLEEP status (Reduce sleep counter)
                     for (Monster monster : playerTurn.getMonsters()) {
                         if (monster.getStatus() == StatusConditionType.SLEEP) {
                             if (monster.getSleepCounter() > 0) {
@@ -86,11 +91,14 @@ public class Game {
                             }
                         }
                     }
-                    // check is end game
-                    if (playerTurn.getMonsters().isEmpty()) { isGameRunning = false; winnerPlayer = playerOpponent; break; }
-                    // go to next player
+
+                    // DELETED SOON vvv
+                    // Check is end game
+                    // if (playerTurn.getMonsters().isEmpty()) { isGameRunning = false; winnerPlayer = playerOpponent; break; }
+
+                    // Go to next player
                     id++;
-                    if (id > 2) { isRoundRunning = false; } // round is end
+                    if (id > 2) { isRoundRunning = false; countRound++; } // round is end, go to next round
                 }
                 
                 // HANDLE PLAYERS MOVE (based on priority and speed)
@@ -168,38 +176,26 @@ public class Game {
             }
             
             // END GAME - SHOW WINNER
-            System.out.println("THE GAME IS END");
+            Config.clearConsole();
+            System.out.println("\nTHE GAME IS END");
             System.out.printf("\nCONGRATULATION to %s for became the winner!!\n", winnerPlayer.getName());
-
-        //} catch (Exception e) {
-            //System.out.println("Game.play");
-            //System.out.println(e.getMessage());
-        //}
-    }
-    
-    public static void loading() {
-        try {
-            for (int i = 0; i < 4; i++) {
-                Thread.sleep(500);
-                System.out.printf(". ");
-            }
-            System.out.printf("\n");
-        } catch (Exception e) {
-            System.out.println("[Exception in loading] : " + e.getMessage());
-        }
+            System.out.printf("\nprocessing to exit from the game"); Config.loading();
+            Exit.exitCredits();
     }
     
     public static void setupGameData() {
         try {
+            System.out.println("\n----- SETUP GAME DATA -----");
             Config.setAllElementEff();
             Config.setAllMonster(); 
-            System.out.println("Data has been loaded successfully");   
+            System.out.println("Data has been loaded successfully\n");   
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public static void setupPlayer() {
+        System.out.println("\n----- SETUP PLAYER -----");
         Player.setRandomIdMonster();
         Scanner sc = new Scanner(System.in);
         System.out.printf("Player 1 name : ");

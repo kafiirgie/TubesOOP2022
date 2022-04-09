@@ -2,13 +2,16 @@ package com.monstersaku.view;
 
 import java.util.Scanner;
 
+import com.monstersaku.util.Config;
+
 public class Menu {
     public static void showWelcome() {
         System.out.println("Welcome to 'MONSTER SAKU'");
+        // TODO:add welcoming text
     }
 
     public static void showStartupMenu() {
-        System.out.println("----- MENU -----");
+        System.out.println("\n###### MENU ######");
         System.out.println("[1] Start Game");
         System.out.println("[2] Help");
         System.out.println("[0] Exit");
@@ -16,7 +19,7 @@ public class Menu {
 
     public static void selectMenu() {
         Scanner sc = new Scanner(System.in);
-        System.out.printf("Select : ");
+        System.out.printf("\nSelect menu : ");
         int input = sc.nextInt();
         if (input == 1) {
             startGame();
@@ -28,20 +31,23 @@ public class Menu {
     }
 
     public static void startGame() {
+        Config.clearConsole();
+        System.out.println("\n===== GAME =====\n");
         Game.play();
     }
 
     public static void help() {
+        Config.clearConsole();
+        System.out.println("\n===== HELP =====\n");
         System.out.println("hi, what can we help you?");
+        System.out.println();
+        // TODO:create help text
     }
-
+    
     public static void exit() {
-        try {
-            System.out.println("processing to exit from the game...");
-            Thread.sleep(1000);
-            Exit.exitCredits();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        Config.clearConsole();
+        System.out.println("\n===== EXIT =====\n");
+        System.out.printf("processing to exit from the game"); Config.loading();
+        Exit.exitCredits();
     }
 }

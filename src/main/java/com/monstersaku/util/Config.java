@@ -1,9 +1,7 @@
 package com.monstersaku.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.lang.Runtime;
 
 import com.monstersaku.monsters.*;
 import com.monstersaku.monsters.move.*;
@@ -26,6 +24,17 @@ public class Config {
     public static void clearConsole() {
         System.out.print("\033[H\033[2J");
     }
+    public static void loading() {
+        try {
+            for (int i = 0; i < 4; i++) {
+                Thread.sleep(500);
+                System.out.printf(". ");
+            }
+            System.out.printf("\n");
+        } catch (Exception e) {
+            System.out.println("[Exception in Loading] : " + e.getMessage());
+        }
+    }
     public static void setAllElementEff() {
         try {
             CSVReader reader = new CSVReader(new File(Config.class.getResource(fileOfElementEff).toURI()), ";");
@@ -36,12 +45,6 @@ public class Config {
                 Double effectivity = Double.valueOf(line[2]);
                 mapOfElementEff.put(key, effectivity);
             }
-            ElementEffKey k1 = new ElementEffKey("NORMAL", "FIRE");
-            ElementEffKey k2 = new ElementEffKey("NORMAL", "FIRE");
-            System.out.println(k1.equals(k2));
-            System.out.println(k1.getSource());
-            System.out.println(k1.getTarget());
-            System.out.println(mapOfElementEff.get(k1));
         } catch (Exception e) {
             System.out.println("Can't set element effectivity : " + e.getMessage());
         }
