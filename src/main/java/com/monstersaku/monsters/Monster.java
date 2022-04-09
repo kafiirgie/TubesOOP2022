@@ -6,6 +6,7 @@ import com.monstersaku.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Monster implements Burn, Poison, Sleep, Paralyze {
     // ATTRIBUTES
@@ -15,9 +16,10 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     private final List<Move> moves = new ArrayList<Move>();
     private boolean isAlive = true;
     private StatusConditionType status = null;
+    private int sleepCounter = 0;
 
     // CONSTRUCTOR
-    public Monster(String name, String elements, String stats, String moves){
+    public Monster(String name, String elements, String stats, String moves) throws CloneNotSupportedException {
         // SET name
         this.name = name;
         // SET elements
@@ -33,7 +35,10 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
         for (int i = 0; i < move.length; i++) {
             // read move first
             Config.addNewMove(Integer.valueOf(move[i]));
-            this.moves.add(Config.getMapOfMove().get(Integer.valueOf(move[i])));
+            // clone move object from map of move
+            Move newMove = (Move)Config.getMapOfMove().get(Integer.valueOf(move[i])).clone();
+            this.moves.add(newMove);
+            //this.moves.add(Config.getMapOfMove().get(Integer.valueOf(move[i])));
         }
         DefaultMove defaultMove = new DefaultMove();
         this.moves.add(defaultMove);
@@ -46,10 +51,12 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     public List<Move> getMoves() { return this.moves; }
     public boolean getIsAlive() { return this.isAlive; }
     public StatusConditionType getStatus() { return this.status; }
+    public int getSleepCounter() { return this.sleepCounter; }
 
     // SETTER
     public void setIsAlive(boolean isAlive) { this.isAlive = isAlive; }
     public void setStatus(StatusConditionType status) { this.status = status; }
+    public void setSleepCounter(int sleepCounter) { this.sleepCounter = sleepCounter; }
 
     // METHODS
     public void showMonsterInfo() {
@@ -70,20 +77,39 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     }
     
     public void takeDamage(double damage) {
-        // TODO:implement take damage
+        double damagedHealthPoint = this.stats.getHealthPoint() - damage;
+        this.stats.setHealthPoint(damagedHealthPoint);
+        if (damagedHealthPoint <= 0) {
+            this.isAlive = false;
+        }
     }
 
-    // Methods for Status Condition -> pake try catch(?)
+    // Methods for Status Condition
     public void burnStatusActive() {
-        // TODO:implement burn status
+        this.status = StatusConditionType.BURN;
+        System.out.println(this.name + "got BURN status condition");
+        // reducing HP implemented in Game.java (after damage calculation)
+        // reducing damage implemented in Move (damage calculation)
     }
     public void poisonStatusActive() {
-        // TODO:implement poison status
+        this.status = StatusConditionType.POISON;
+        System.out.println(this.name + "got POISON status condition");
+        // reducing HP implemented in Game.java (after damage calculation)
     }
     public void sleepStatusActive() {
-        // TODO:implement sleep status
+        this.status = StatusConditionType.SLEEP;
+        System.out.println(this.name + "got SLEEP status condition");
+        // Random sleep counter
+        Random r = new Random();
+        this.sleepCounter = r.nextInt(7) + 1;
+        // TODO:implementation for 'monster cant move' in Game.java
     }
     public void paralyzeStatusActive() {
-        // TODO:implement paralyze status
+        this.status = StatusConditionType.PARALYZE;
+        System.out.println(this.name + "got PARALYZE status condition");
+        // Reduce monster speed
+        double recucedSpeed = Math.floor(this.stats.getSpeed() / 2);
+        this.stats.setSpeed(recucedSpeed);
+        // Implementation for 'monster cant move' in Game.java
     }
 }

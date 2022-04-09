@@ -81,7 +81,7 @@ public class Player {
         this.selectActiveMonster();
     }
     public void selectActiveMonster() {     // if active monster died
-        showMonsterAlive();
+        showNonActiveMonster();
         Scanner sc = new Scanner(System.in);
         System.out.printf("Select monster : ");
         int input = sc.nextInt();
@@ -90,32 +90,31 @@ public class Player {
     }
     
     // [1] Move Monster
-    public void selectMonsterMove() {
+    public int selectMonsterMove() {
         this.activeMonster.showMonsterMove();
         Scanner sc = new Scanner(System.in);
         System.out.printf("Select move : ");
         int input = sc.nextInt();
-        this.activeMonster.getMoves().get(input-1).doMove();
+        return input;
     }
     
     // [2] Switch Monster
     public void switchActiveMonster() {
-        showMonsterAlive();
-        Scanner sc = new Scanner(System.in);
-        System.out.printf("Select monster : ");
-        int input = sc.nextInt();
-        Monster temp = activeMonster;
-        this.activeMonster = this.nonActiveMonsters.get(input-1);
-        this.nonActiveMonsters.remove(input-1);
-        this.nonActiveMonsters.add(temp);
+        showNonActiveMonster();
+        if (this.nonActiveMonsters.size() > 0) {
+            Scanner sc = new Scanner(System.in);
+            System.out.printf("Select monster : ");
+            int input = sc.nextInt();
+            Monster temp = activeMonster;
+            this.activeMonster = this.nonActiveMonsters.get(input-1);
+            this.nonActiveMonsters.remove(input-1);
+            this.nonActiveMonsters.add(temp);
+        }
     }
     
     // [3] Show Monster Info
     public void showMonsterInGameInfo() {
-        System.out.println("YOUR MONSTER");
-        for (int i = 0; i < this.monsters.size(); i++) {
-            System.out.printf("[%d] %s\n", i+1, this.monsters.get(i).getName());
-        }
+        this.showAliveMonsters();
         Scanner sc = new Scanner(System.in);
         System.out.printf("Select monster to inspect : ");
         int input = sc.nextInt();
@@ -126,19 +125,33 @@ public class Player {
     public void showPlayerInfo() {
         System.out.printf("PLAYER %d INFO\n", this.id);
         System.out.printf("Player name : %s\n", this.name);
-        this.showMonsterAlive();
+        this.showAliveMonsters();
     }
     
-    public void showMonsterAlive() {
-        System.out.printf("Active monster: \n");
+    public void showAliveMonsters() {
+        System.out.println("Alive monsters:");
+        for (int i = 0; i < this.monsters.size(); i++) {
+            System.out.printf("[%d] %s\n", i+1, this.monsters.get(i).getName());
+        }
+    }
+
+    public void showActiveMonster() {
+        System.out.println("Active monster:");
         if (this.activeMonster != null) {
             System.out.println(this.activeMonster.getName());
         } else {
             System.out.println("There is no active monster right now");
         }
-        System.out.printf("Inactive monsters: \n");
-        for (int i = 0; i < this.nonActiveMonsters.size(); i++) {
-            System.out.printf("[%d] %s\n", i+1, this.nonActiveMonsters.get(i).getName());
+    }
+
+    public void showNonActiveMonster() {
+        System.out.println("Inactive monsters:");
+        if (this.nonActiveMonsters.size() > 0) {
+            for (int i = 0; i < this.nonActiveMonsters.size(); i++) {
+                System.out.printf("[%d] %s\n", i+1, this.nonActiveMonsters.get(i).getName());
+            }   
+        } else {
+            System.out.println("There is no non-active monsters right now");
         }
     }
 

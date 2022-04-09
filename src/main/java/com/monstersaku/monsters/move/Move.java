@@ -2,7 +2,7 @@ package com.monstersaku.monsters.move;
 
 import com.monstersaku.monsters.*;
 
-public abstract class Move {
+public abstract class Move implements Cloneable {
     // ATTRIBUTES
     private final String name;
     private final ElementType elementType;
@@ -37,6 +37,9 @@ public abstract class Move {
     public int getAmmunition() { return this.ammunition; }
     public MoveTarget getTarget() { return this.target; }
 
+    public Object clone() throws CloneNotSupportedException {
+        return (Move)super.clone();
+    }
     // ABSTRACT METHOD
     public abstract void doMove(Monster monster, Monster monsterTarget);
 

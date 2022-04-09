@@ -2,7 +2,7 @@ package com.monstersaku.monsters;
 
 public class StatsBuff {
     // ATTRIBUTES
-    private static final int MAX_STATSBUFF = 4; //ntar pake try catch
+    private static final int MAX_STATSBUFF = 4;
 	private static final int MIN_STATSBUFF = -4;
     private int healthPoint = 0;
     private int attack = 0;
