@@ -2,6 +2,7 @@ package com.monstersaku.util;
 
 import java.io.File;
 import java.util.List;
+import java.util.Scanner;
 
 import com.monstersaku.monsters.*;
 import com.monstersaku.monsters.move.*;
@@ -35,6 +36,12 @@ public class Config {
             System.out.println("[Exception in Loading] : " + e.getMessage());
         }
     }
+    public static void goToNextPage() {
+        System.out.println("\npress enter to continue...");
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+    }
+
     public static void setAllElementEff() {
         try {
             CSVReader reader = new CSVReader(new File(Config.class.getResource(fileOfElementEff).toURI()), ";");

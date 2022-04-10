@@ -24,7 +24,6 @@ public class Player {
         // SET id and name
         this.id = id;
         this.name = name;
-
         // SET random monster
         for (int i = (6*(id-1)); i < (6*id); i++) {
             int idMonster = arrOfIdMonster[i]+1;
@@ -82,16 +81,32 @@ public class Player {
         this.selectActiveMonster();
     }
     public void selectActiveMonster() {     // if active monster died
+        System.out.printf("\n[Player %s]\n", this.name);
         showNonActiveMonster();
-        if (this.nonActiveMonsters.size() > 0) {
-            Scanner sc = new Scanner(System.in);
-            System.out.printf("Select monster : ");
-            int input = sc.nextInt();
-            this.activeMonster = this.nonActiveMonsters.get(input-1);
-            this.nonActiveMonsters.remove(input-1);
-        } else {
-            System.out.println("All monsters already died");
-            System.out.println("The game is end");
+        boolean isInputValid = false;
+        while (!isInputValid) {
+            try {
+                if (this.nonActiveMonsters.size() > 0) {
+                    Scanner sc = new Scanner(System.in);
+                    System.out.printf("Select monster : ");
+                    int input = sc.nextInt();
+                    if (input >= 1 && input <= this.nonActiveMonsters.size()) {
+                        isInputValid = true;
+                        this.activeMonster = this.nonActiveMonsters.get(input-1);
+                        this.nonActiveMonsters.remove(input-1);
+                    } else {
+                        throw new IllegalArgumentException();
+                    }
+                } else {
+                    isInputValid = true;
+                    System.out.println("\nAll monsters already died");
+                    System.out.println("The game is end");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("[Input Exception] : Invalid input value, please input in option range");
+            } catch (Exception e) {
+                System.out.println("[Input Exception] : Wrong input type, please input in integer type");
+            }
         }
     }
     
@@ -99,9 +114,24 @@ public class Player {
     public int selectMonsterMove() {
         System.out.println("\n[ SELECT MOVE ]");
         this.activeMonster.showMonsterMove();
-        Scanner sc = new Scanner(System.in);
-        System.out.printf("Select move : ");
-        int input = sc.nextInt();
+        int input = 0;
+        boolean isInputValid = false;
+        while (!isInputValid) {
+            try {
+                Scanner sc = new Scanner(System.in);
+                System.out.printf("Select move : ");
+                input = sc.nextInt();
+                if (input >= 1 && input <= this.activeMonster.getMoves().size()) {
+                    isInputValid = true;
+                } else {
+                    throw new IllegalArgumentException();
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("[Input Exception] : Invalid input value, please input in option range");
+            } catch (Exception e) {
+                System.out.println("[Input Exception] : Wrong input type, please input in integer type");
+            }
+        }
         return input;
     }
     
@@ -109,16 +139,31 @@ public class Player {
     public void switchActiveMonster() {
         System.out.println("\n[ SWITCH MONSTER ]");
         showNonActiveMonster();
-        if (this.nonActiveMonsters.size() > 0) {
-            Scanner sc = new Scanner(System.in);
-            System.out.printf("Select monster : ");
-            int input = sc.nextInt();
-            Monster temp = activeMonster;
-            this.activeMonster = this.nonActiveMonsters.get(input-1);
-            this.nonActiveMonsters.remove(input-1);
-            this.nonActiveMonsters.add(temp);
-        } else {
-            System.out.println("Can't do switch monster");
+        boolean isInputValid = false;
+        while (!isInputValid) {
+            try {
+                if (this.nonActiveMonsters.size() > 0) {
+                    Scanner sc = new Scanner(System.in);
+                    System.out.printf("Select monster : ");
+                    int input = sc.nextInt();
+                    if (input >= 1 && input <= this.nonActiveMonsters.size()) {
+                        isInputValid = true;
+                        Monster temp = activeMonster;
+                        this.activeMonster = this.nonActiveMonsters.get(input-1);
+                        this.nonActiveMonsters.remove(input-1);
+                        this.nonActiveMonsters.add(temp);
+                    } else {
+                        throw new IllegalArgumentException();
+                    }
+                } else {
+                    isInputValid = true;
+                    System.out.println("Can't do switch monster");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("[Input Exception] : Invalid input value, please input in option range");
+            } catch (Exception e) {
+                System.out.println("[Input Exception] : Wrong input type, please input in integer type");
+            }
         }
     }
     
@@ -126,10 +171,24 @@ public class Player {
     public void showMonsterInGameInfo() {
         System.out.println("\n[ MONSTER INFO ]");
         this.showAliveMonsters();
-        Scanner sc = new Scanner(System.in);
-        System.out.printf("Select monster to inspect : ");
-        int input = sc.nextInt();
-        monsters.get(input-1).showMonsterInfo();
+        boolean isInputValid = false;
+        while (!isInputValid) {
+            try {
+                Scanner sc = new Scanner(System.in);
+                System.out.printf("Select monster to inspect : ");
+                int input = sc.nextInt();
+                if (input >= 1 && input <= this.monsters.size()) {
+                    isInputValid = true;
+                    this.monsters.get(input-1).showMonsterInfo();
+                } else {
+                    throw new IllegalArgumentException();
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("[Input Exception] : Invalid input value, please input in option range");
+            } catch (Exception e) {
+                System.out.println("[Input Exception] : Wrong input type, please input in integer type");
+            }
+        }
     }
     
     // [4] Show Game Info

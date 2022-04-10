@@ -18,15 +18,29 @@ public class Menu {
     }
 
     public static void selectMenu() {
-        Scanner sc = new Scanner(System.in);
-        System.out.printf("\nSelect menu : ");
-        int input = sc.nextInt();
-        if (input == 1) {
-            startGame();
-        } else if (input == 2) {
-            help();
-        } else if (input == 0) {
-            exit();
+        boolean isInputValid = false;
+        while (!isInputValid) {
+            try {
+                Scanner sc = new Scanner(System.in);
+                System.out.printf("\nSelect menu : ");
+                int input = sc.nextInt();
+                if (input == 1) {
+                    isInputValid = true;
+                    startGame();
+                } else if (input == 2) {
+                    isInputValid = true;
+                    help();
+                } else if (input == 0) {
+                    isInputValid = true;
+                    exit();
+                } else {
+                    throw new IllegalArgumentException();
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("[Input Exception] : Invalid input value, please input either 0, 1, or 2");
+            } catch (Exception e) {
+                System.out.println("[Input Exception] : Wrong input type, please input in integer type");
+            }
         }
     }
 

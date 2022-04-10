@@ -60,6 +60,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
 
     // METHODS
     public void showMonsterInfo() {
+        System.out.println("\n[ MONSTER INFO ]");
         System.out.printf("Name     :  ");
         System.out.println(this.name);
         System.out.println("Elements : ");

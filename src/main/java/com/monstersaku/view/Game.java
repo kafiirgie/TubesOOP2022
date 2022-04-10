@@ -38,14 +38,12 @@ public class Game {
                     // Check the id, is now player 2 turn or not
                     if (id == 2) { playerTurn = player2; playerOpponent = player1; }
                     
-                    // Setup display
-                    Config.clearConsole();
-                    System.out.printf("##### ROUND %d #####\n", countRound);
-                    
                     // TURN STARTED
                     boolean isTurnRunning = true;
                     while (isTurnRunning) {    
                         // Setup display
+                        Config.clearConsole();
+                        System.out.printf("##### ROUND %d #####\n", countRound);
                         System.out.println("\n===== BEGINNING OF TURN =====");
                         System.out.println("Now is " + playerTurn.getName() + "'s turn\n");
                         // Selecting action
@@ -78,11 +76,13 @@ public class Game {
                             movePlayers[id-1] = -1;
                             System.out.println("You can select another action");
                         }
+                        Config.goToNextPage();
                         // End of turn (player choose move or switch)
                         if (moveAction >= 0) { isTurnRunning = false; }
                     }
                     System.out.println("\n===== END OF TURN =====");
                     Config.loading();
+                    Config.clearConsole();
 
                     // Handle SLEEP status (Reduce sleep counter)
                     for (Monster monster : playerTurn.getMonsters()) {
@@ -99,6 +99,7 @@ public class Game {
                     if (id > 2) { isRoundRunning = false; } // Round is end, go to next round
                 }
                 countRound++;
+                Config.clearConsole();
                 System.out.printf("\n##### ROUND %d IS END #####\n", countRound-1);
 
                 // HANDLE PLAYERS MOVE (based on priority and speed)
@@ -143,8 +144,8 @@ public class Game {
                             handlePlayersActiveMonsterDied();
                             isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
                         } else {
-                            handlePlayersActiveMonsterDied();
                             System.out.printf("\nPlayer %s active monster died, can't do move\n", player2.getName());
+                            handlePlayersActiveMonsterDied();
                             isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
                         }
                     } else {
@@ -174,17 +175,18 @@ public class Game {
                 }
                 
                 // AFTER DAMAGE CALCULATION
-                afterDamageCalculation();
+                afterDamageCalculation(player1);
+                afterDamageCalculation(player2);
                 
                 // HANDLE MONSTER DIED
                 handlePlayersActiveMonsterDied();
                 // CHECK IS GAME STILL RUNNING
                 isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
                 
-                System.out.printf("\ngoing to next round");
-                Config.loading();
+                System.out.printf("\ngoing to next round"); Config.loading();
+                Config.goToNextPage();
             }
-            
+            Config.goToNextPage();
             // END GAME - SHOW WINNER
             Config.clearConsole();
             System.out.println("\nTHE GAME IS END");
@@ -210,10 +212,25 @@ public class Game {
         Scanner sc = new Scanner(System.in);
         System.out.printf("Player 1 name : ");
         String playerName1 = sc.next();
-        System.out.printf("Player 2 name : ");
-        String playerName2 = sc.next();
         player1 = new Player(1, playerName1);
-        player2 = new Player(2, playerName2);
+        // Check player 2 name input
+        boolean isInputValid = false;
+        while (!isInputValid) {
+            try {
+                System.out.printf("Player 2 name : ");
+                String playerName2 = sc.next();
+                if (!playerName2.equals(playerName1)) {
+                    isInputValid = true;
+                    player2 = new Player(2, playerName2);
+                } else {
+                    throw new IllegalArgumentException();
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("[Input Exception] : Playar 2 name must be different from Playar 1 name");
+            } catch (Exception e) {
+                System.out.println("[Input Exception] : " + e.getMessage());
+            }
+        }
     }
 
     public static void showAction() {
@@ -225,21 +242,37 @@ public class Game {
     }
 
     public static int selectAction(Player player1, Player player2) {
-        Scanner sc = new Scanner(System.in);
-        System.out.printf("Select action : ");
-        int input = sc.nextInt();
+        boolean isInputValid = false;
         int move = -1;
-        if (input == 1) {
-            move = player1.selectMonsterMove(); // move > 0 indicates player choose move
-        } else if (input == 2) {
-            player1.switchActiveMonster();      // move = 0 indicates player choose swicth
-            move = 0;
-        } else if (input == 3) {
-            player1.showMonsterInGameInfo();    // move < 0 indicates player choose show monster or game info
-        } else if (input == 4) {
-            System.out.println("\n[ GAME INFO ]");
-            player1.showPlayerInfo();           // move < 0 indicates player choose show monster or game info
-            player2.showPlayerInfo();
+        while (!isInputValid) {
+            try {
+                Scanner sc = new Scanner(System.in);
+                System.out.printf("Select action : ");
+                int input = sc.nextInt();
+                if (input == 1) {
+                    isInputValid = true;
+                    move = player1.selectMonsterMove(); // move > 0 indicates player choose move
+                } else if (input == 2) {
+                    isInputValid = true;
+                    player1.switchActiveMonster();      // move = 0 indicates player choose swicth
+                    move = 0;
+                } else if (input == 3) {
+                    isInputValid = true;
+                    player1.showMonsterInGameInfo();    // move < 0 indicates player choose show monster or game info
+                } else if (input == 4) {
+                    isInputValid = true;
+                    System.out.println("\n[ GAME INFO ]");
+                    player1.showPlayerInfo();           // move < 0 indicates player choose show monster or game info
+                    System.out.println();
+                    player2.showPlayerInfo();
+                } else {
+                    throw new IllegalArgumentException();
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("[Input Exception] : Invalid input value, please input either 1, 2, 3, or 4");
+            } catch (Exception e) {
+                System.out.println("[Input Exception] : Wrong input type, please input in integer type");
+            }
         }
         return move;
     }
@@ -249,29 +282,38 @@ public class Game {
             Monster monster = player1.getActiveMonster();
             Monster monsterTarget = player2.getActiveMonster();
             System.out.printf("\n[Player %s] : %s do %s move\n", player1.getName(), monster.getName(), monster.getMoves().get(movePlayers[0]-1).getMoveName());
-            monster.getMoves().get(movePlayers[0]-1).doMove(monster, monsterTarget);
+            // Check move accuracy
+            Random r = new Random();
+            int value = r.nextInt(100);
+            if (value < monster.getMoves().get(movePlayers[0]-1).getAccuracy()) {
+                System.out.printf("\n[Player %s] : %s successfullt did %s move\n", player1.getName(), monster.getName(), monster.getMoves().get(movePlayers[0]-1).getMoveName());
+                monster.getMoves().get(movePlayers[0]-1).doMove(monster, monsterTarget);
+            } else {
+                System.out.printf("\n[Player %s] : Oops, %s failed did %s move\n", player1.getName(), monster.getName(), monster.getMoves().get(movePlayers[0]-1).getMoveName());
+            }
         } else if (id == 2) {
             Monster monster = player2.getActiveMonster();
             Monster monsterTarget = player1.getActiveMonster();
             System.out.printf("\n[Player %s] : %s do %s move\n", player2.getName(), monster.getName(), monster.getMoves().get(movePlayers[1]-1).getMoveName());
-            monster.getMoves().get(movePlayers[1]-1).doMove(monster, monsterTarget);
+            // Check move accuracy
+            Random r = new Random();
+            int value = r.nextInt(100);
+            if (value < monster.getMoves().get(movePlayers[1]-1).getAccuracy()) {
+                System.out.printf("\n[Player %s] : %s successfullt did %s move\n", player2.getName(), monster.getName(), monster.getMoves().get(movePlayers[1]-1).getMoveName());
+                monster.getMoves().get(movePlayers[1]-1).doMove(monster, monsterTarget);
+            } else {
+                System.out.printf("\n[Player %s] : Oops, %s failed did %s move\n", player2.getName(), monster.getName(), monster.getMoves().get(movePlayers[1]-1).getMoveName());
+            }
         }
     }
 
-    public static void afterDamageCalculation() {
-        if (player1.getActiveMonster().getStatus() == StatusConditionType.BURN) {
-            double damage = Math.floor(player1.getActiveMonster().getStats().getMaxHealthPoint() / 8);
-            player1.getActiveMonster().takeDamage(damage);
-        } else if (player1.getActiveMonster().getStatus() == StatusConditionType.POISON) {
-            double damage = Math.floor(player1.getActiveMonster().getStats().getMaxHealthPoint() / 16);
-            player1.getActiveMonster().takeDamage(damage);
-        }
-        if (player2.getActiveMonster().getStatus() == StatusConditionType.BURN) {
-            double damage = Math.floor(player2.getActiveMonster().getStats().getMaxHealthPoint() / 8);
-            player2.getActiveMonster().takeDamage(damage);
-        } else if (player2.getActiveMonster().getStatus() == StatusConditionType.POISON) {
-            double damage = Math.floor(player2.getActiveMonster().getStats().getMaxHealthPoint() / 16);
-            player2.getActiveMonster().takeDamage(damage);
+    public static void afterDamageCalculation(Player player) {
+        if (player.getActiveMonster().getStatus() == StatusConditionType.BURN) {
+            double damage = Math.floor(player.getActiveMonster().getStats().getMaxHealthPoint() / 8);
+            player.getActiveMonster().takeDamage(damage);
+        } else if (player.getActiveMonster().getStatus() == StatusConditionType.POISON) {
+            double damage = Math.floor(player.getActiveMonster().getStats().getMaxHealthPoint() / 16);
+            player.getActiveMonster().takeDamage(damage);
         }
     }
 
