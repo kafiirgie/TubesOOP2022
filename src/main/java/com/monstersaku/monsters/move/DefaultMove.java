@@ -33,7 +33,7 @@ public class DefaultMove extends Move {
         double reducedHealth = currentHealth - reducingHealth;
         if (reducedHealth > 0) {
             monster.getStats().setHealthPoint(reducedHealth);
-            System.out.println("healt point now is " + reducedHealth + " points");
+            System.out.println("health point now is " + reducedHealth + " points");
 
             // Calculate damage
             System.out.println("calculating damage...");
