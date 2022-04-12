@@ -30,6 +30,11 @@ public class Menu {
                 } else if (input == 2) {
                     isInputValid = true;
                     help();
+                    Config.goToNextPage();
+                    Config.clearConsole();
+                    showWelcome();
+                    showStartupMenu();
+                    selectMenu();
                 } else if (input == 0) {
                     isInputValid = true;
                     exit();
