@@ -6,7 +6,6 @@ public class StatsBuff {
     // ATTRIBUTES
     private static final int MAX_STATSBUFF = 4;
 	private static final int MIN_STATSBUFF = -4;
-    private int healthPoint = 0;
     private int attack = 0;
     private int defense = 0;
     private int specialAttack = 0;
@@ -14,8 +13,7 @@ public class StatsBuff {
     private int speed = 0;
 
     // CONSTRUCTOR
-    public StatsBuff(int healthPoint, int attack, int defense, int specialAttack, int specialDefense, int speed) {
-        this.healthPoint = healthPoint;
+    public StatsBuff(int attack, int defense, int specialAttack, int specialDefense, int speed) {
         this.attack = attack;
         this.defense = defense;
         this.specialAttack = specialAttack;
@@ -23,23 +21,14 @@ public class StatsBuff {
         this.speed = speed;
     }
     public StatsBuff() {
-        this.healthPoint = 0;
         this.attack = 0;
         this.defense = 0;
         this.specialAttack = 0;
         this.specialDefense = 0;
         this.speed = 0;
-        // Random r = new Random();
-        // this.healthPoint = r.nextInt(9) - 4;
-        // this.attack = r.nextInt(9) - 4;
-        // this.defense = r.nextInt(9) - 4;
-        // this.specialAttack = r.nextInt(9) - 4;
-        // this.specialDefense = r.nextInt(9) - 4;
-        // this.speed = r.nextInt(9) - 4;
     }
 
     // SETTER
-    public void setHealthPointBuff(int healthPoint) { this.healthPoint = healthPoint; }
     public void setAttackBuff(int attack) { this.attack = attack; }
     public void setDefenseBuff(int defense) { this.defense = defense; }
     public void setSpecialAttackBuff(int specialAttack) { this.specialAttack = specialAttack; }
@@ -47,7 +36,6 @@ public class StatsBuff {
     public void setSpeedBuff(int speed) { this.speed = speed; }
 
     // GETTER
-    public int getHealthPointBuff() { return this.healthPoint; }
     public int getAttackBuff() { return this.attack; }
     public int getDefenseBuff() { return this.defense; }
     public int getSpecialAttackBuff() { return this.specialAttack; }

@@ -2,22 +2,22 @@ package com.monstersaku.monsters;
 
 public class ElementEffKey {
     // ATTRIBUTES
-    public final ElementType source;
-    public final ElementType target;
+    public final MonsterElementType source;
+    public final MonsterElementType target;
 
     // CONSTRUCTOR
     public ElementEffKey(String source, String target){
-        this.source = ElementType.valueOf(source);
-        this.target = ElementType.valueOf(target);
+        this.source = MonsterElementType.valueOf(source);
+        this.target = MonsterElementType.valueOf(target);
     }
-    public ElementEffKey(ElementType source, ElementType target){
+    public ElementEffKey(MonsterElementType source, MonsterElementType target){
         this.source = source;
         this.target = target;
     }
 
     // GETTER
-    public ElementType getSource() { return this.source; }
-    public ElementType getTarget() { return this.target; }
+    public MonsterElementType getSource() { return this.source; }
+    public MonsterElementType getTarget() { return this.target; }
 
     // EQUALS OVERRIDE
     @Override

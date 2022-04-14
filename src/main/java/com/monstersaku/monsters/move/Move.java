@@ -5,7 +5,7 @@ import com.monstersaku.monsters.*;
 public abstract class Move implements Cloneable {
     // ATTRIBUTES
     private final String name;
-    private final ElementType elementType;
+    private final MonsterElementType elementType;
     private final int accuracy;
     private final int priority;
     private int ammunition;
@@ -19,7 +19,7 @@ public abstract class Move implements Cloneable {
                 String ammunition,
                 String target) {
         this.name = name;
-        this.elementType = ElementType.valueOf(elementType);
+        this.elementType = MonsterElementType.valueOf(elementType);
         this.accuracy = Integer.valueOf(accuracy);
         this.priority = Integer.valueOf(priority);
         this.ammunition = Integer.valueOf(ammunition);
@@ -31,7 +31,7 @@ public abstract class Move implements Cloneable {
 
     // GETTER
     public String getMoveName() { return this.name; }
-    public ElementType getElementType() { return this.elementType; }
+    public MonsterElementType getElementType() { return this.elementType; }
     public int getAccuracy() { return this.accuracy; }
     public int getPriority() { return this.priority; }
     public int getAmmunition() { return this.ammunition; }

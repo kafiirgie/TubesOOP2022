@@ -11,7 +11,7 @@ import java.util.Random;
 public class Monster implements Burn, Poison, Sleep, Paralyze {
     // ATTRIBUTES
     private final String name;
-    private final List<ElementType> elements = new ArrayList<ElementType>();
+    private final List<MonsterElementType> elements = new ArrayList<MonsterElementType>();
     private Stats stats;
     private final List<Move> moves = new ArrayList<Move>();
     private boolean isAlive = true;
@@ -25,7 +25,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
         // SET elements
         String[] element = elements.split(",");
         for (int i = 0; i < element.length; i++) {
-            this.elements.add(ElementType.valueOf(element[i]));
+            this.elements.add(MonsterElementType.valueOf(element[i]));
         }
         // SET stats
         String[] stat = stats.split(",");
@@ -46,7 +46,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
 
     // GETTER
     public String getName() { return this.name; }
-    public List<ElementType> getElements() { return this.elements; }
+    public List<MonsterElementType> getElements() { return this.elements; }
     public Stats getStats() { return this.stats; }
     public List<Move> getMoves() { return this.moves; }
     public boolean getIsAlive() { return this.isAlive; }

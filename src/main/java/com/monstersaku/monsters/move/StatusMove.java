@@ -98,7 +98,6 @@ public class StatusMove extends Move {
     public void doStatsBuff(Monster monster) {
         // Random Stats Buff Value
         Random r = new Random();
-        this.statsBuff.setHealthPointBuff(r.nextInt(9) - 4);
         this.statsBuff.setAttackBuff(r.nextInt(9) - 4);
         this.statsBuff.setDefenseBuff(r.nextInt(9) - 4);
         this.statsBuff.setSpecialAttackBuff(r.nextInt(9) - 4);
@@ -106,11 +105,6 @@ public class StatusMove extends Move {
         this.statsBuff.setSpeedBuff(r.nextInt(9) - 4);
         
         // Set New Stats for the Monster
-        // stats buff only change current HP, not max HP
-        double buffedHealthPoint = Math.floor(StatsBuff.getFactor(this.statsBuff.getHealthPointBuff()) * monster.getStats().getHealthPoint());
-        monster.getStats().setHealthPoint(buffedHealthPoint);
-        System.out.printf("\n%s got health point buff, health point stats now is %f\n", monster.getName(), buffedHealthPoint);
-        
         double buffedAttack = Math.floor(StatsBuff.getFactor(this.statsBuff.getAttackBuff()) * monster.getStats().getAttack());
         monster.getStats().setAttack(buffedAttack);
         System.out.printf("\n%s got attack buff, attack stats now is %f\n", monster.getName(), buffedAttack);

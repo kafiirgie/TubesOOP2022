@@ -47,8 +47,12 @@ public class NormalMove extends Move{
         Random r = new Random();
         double random = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
         // Element eff
-        ElementEffKey key = new ElementEffKey(super.getElementType(), monsterTarget.getElements().get(0));
-        double effectivity = Config.getMapOfElementEff().get(key);
+        double effectivity = 1;
+        for (int i = 0; i < monster.getElements().size(); i++) {
+            ElementEffKey key = new ElementEffKey(super.getElementType(), monsterTarget.getElements().get(i));
+            effectivity *= Config.getMapOfElementEff().get(key);
+            
+        }
         // Burn Factor
         double burn;
         if (monster.getStatus() == StatusConditionType.BURN) {
