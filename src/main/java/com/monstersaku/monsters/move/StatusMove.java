@@ -64,7 +64,7 @@ public class StatusMove extends Move {
             } else if (this.status == StatusConditionType.PARALYZE) {
                 monster.paralyzeStatusActive();
             }
-            monster.getStats().setHealthPoint(monster.getStats().getHealthPoint() + this.effectHealthPoint);
+            monster.getStats().setHealthPoint(monster.getStats().getHealthPoint() + this.effectHealthPoint - ((monster.getStats().getHealthPoint() + this.effectHealthPoint) % monster.getStats().getMaxHealthPoint()));
             monster.getStats().setAttack(monster.getStats().getAttack() + this.effectAttack);
             monster.getStats().setDefense(monster.getStats().getDefense() + this.effectDefense);
             monster.getStats().setSpecialAttack(monster.getStats().getSpecialAttack() + this.effectSpecialAttack);
@@ -96,6 +96,7 @@ public class StatusMove extends Move {
     }
 
     public void doStatsBuff(Monster monster) {
+        System.out.printf("\n%s got status buff\n", monster.getName());
         // Random Stats Buff Value
         Random r = new Random();
         this.statsBuff.setAttackBuff(r.nextInt(9) - 4);
@@ -107,23 +108,23 @@ public class StatusMove extends Move {
         // Set New Stats for the Monster
         double buffedAttack = Math.floor(StatsBuff.getFactor(this.statsBuff.getAttackBuff()) * monster.getStats().getAttack());
         monster.getStats().setAttack(buffedAttack);
-        System.out.printf("\n%s got attack buff, attack stats now is %f\n", monster.getName(), buffedAttack);
+        System.out.printf("%s got attack buff, attack stats now is %f\n", monster.getName(), buffedAttack);
         
         double buffedDefense = Math.floor(StatsBuff.getFactor(this.statsBuff.getDefenseBuff()) * monster.getStats().getDefense());
         monster.getStats().setDefense(buffedDefense);
-        System.out.printf("\n%s got defense buff, defense stats now is %f\n", monster.getName(), buffedDefense);
+        System.out.printf("%s got defense buff, defense stats now is %f\n", monster.getName(), buffedDefense);
         
         double buffedSpecialAttack = Math.floor(StatsBuff.getFactor(this.statsBuff.getSpecialAttackBuff()) * monster.getStats().getSpecialAttack());
         monster.getStats().setSpecialAttack(buffedSpecialAttack);
-        System.out.printf("\n%s got special attack buff, special attack stats now is %f\n", monster.getName(), buffedSpecialAttack);
+        System.out.printf("%s got special attack buff, special attack stats now is %f\n", monster.getName(), buffedSpecialAttack);
         
         double buffedSpecialDefense = Math.floor(StatsBuff.getFactor(this.statsBuff.getSpecialDefenseBuff()) * monster.getStats().getSpecialDefense());
         monster.getStats().setSpecialDefense(buffedSpecialDefense);
-        System.out.printf("\n%s got special defense buff, special defense stats now is %f\n", monster.getName(), buffedSpecialDefense);
+        System.out.printf("%s got special defense buff, special defense stats now is %f\n", monster.getName(), buffedSpecialDefense);
         
         double buffedSpeed = Math.floor(StatsBuff.getFactor(this.statsBuff.getSpeedBuff()) * monster.getStats().getSpeed());
         monster.getStats().setSpeed(buffedSpeed);
-        System.out.printf("\n%s got speed buff, speed stats now is %f\n", monster.getName(), buffedSpeed);
+        System.out.printf("%s got speed buff, speed stats now is %f\n", monster.getName(), buffedSpeed);
     }
 
 }

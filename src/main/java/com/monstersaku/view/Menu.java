@@ -42,7 +42,7 @@ public class Menu {
                     throw new IllegalArgumentException();
                 }
             } catch (IllegalArgumentException e) {
-                System.out.println("[Input Exception] : Invalid input value, please input either 0, 1, or 2");
+                System.out.println("[Input Exception] : Invalid input value, please input in option range");
             } catch (Exception e) {
                 System.out.println("[Input Exception] : Wrong input type, please input in integer type");
             }

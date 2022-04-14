@@ -69,13 +69,14 @@ public class Game {
                                 System.out.println(playerTurn.getActiveMonster().getName() + " still can do move.");
                             }
                         }
-                        // Check move amunition
-                        if (moveAction > 0 && playerTurn.getActiveMonster().getMoves().get(moveAction-1).getAmmunition() < 1) {
-                            System.out.println("Oopss, " + playerTurn.getActiveMonster().getName() + " can't do this move. This move is out of amunition");
-                            playerTurn.getActiveMonster().getMoves().remove(moveAction-1);
-                            movePlayers[id-1] = -1;
-                            System.out.println("You can select another action");
-                        }
+                        // // Check move amunition
+                        // if (moveAction > 0 && playerTurn.getActiveMonster().getMoves().get(moveAction-1).getAmmunition() < 1) {
+                        //     System.out.println("Oopss, " + playerTurn.getActiveMonster().getName() + " can't do this move. This move is out of amunition");
+                        //     playerTurn.getActiveMonster().getMoves().remove(moveAction-1);
+                        //     System.out.println("You can select another action");
+                        //     playerTurn.getActiveMonster().getMoves().remove(moveAction-1);
+                        //     moveAction = -1;
+                        // }
                         Config.goToNextPage();
                         // End of turn (player choose move or switch)
                         if (moveAction >= 0) { isTurnRunning = false; }
@@ -90,7 +91,7 @@ public class Game {
                             if (monster.getSleepCounter() > 0) {
                                 monster.setSleepCounter(monster.getSleepCounter() - 1); // reduce sleep counter
                             } else {
-                                monster.setStatus(null);                                // release SLEEP status
+                                monster.setStatus(null);                         // release SLEEP status
                             }
                         }
                     }
@@ -175,6 +176,7 @@ public class Game {
                 }
                 
                 // AFTER DAMAGE CALCULATION
+                System.out.println("\nAfter Damage Calculation:");
                 afterDamageCalculation(player1);
                 afterDamageCalculation(player2);
                 
@@ -239,6 +241,8 @@ public class Game {
         System.out.println("[2] Switch Monster");
         System.out.println("[3] Monster Info");
         System.out.println("[4] Game Info");
+        System.out.println("[5] Help");
+        System.out.println("[0] Exit");
     }
 
     public static int selectAction(Player player1, Player player2) {
@@ -265,11 +269,17 @@ public class Game {
                     player1.showPlayerInfo();           // move < 0 indicates player choose show monster or game info
                     System.out.println();
                     player2.showPlayerInfo();
+                } else if (input == 5) {
+                    isInputValid = true;
+                    Menu.help();
+                } else if (input == 0) {
+                    isInputValid = true;
+                    Menu.exit();
                 } else {
                     throw new IllegalArgumentException();
                 }
             } catch (IllegalArgumentException e) {
-                System.out.println("[Input Exception] : Invalid input value, please input either 1, 2, 3, or 4");
+                System.out.println("[Input Exception] : Invalid input value, please input in option range");
             } catch (Exception e) {
                 System.out.println("[Input Exception] : Wrong input type, please input in integer type");
             }
@@ -286,10 +296,14 @@ public class Game {
             Random r = new Random();
             int value = r.nextInt(100);
             if (value < monster.getMoves().get(movePlayers[0]-1).getAccuracy()) {
-                System.out.printf("\n[Player %s] : %s successfullt did %s move\n", player1.getName(), monster.getName(), monster.getMoves().get(movePlayers[0]-1).getMoveName());
+                System.out.printf("[Player %s] : %s successfull did %s move\n", player1.getName(), monster.getName(), monster.getMoves().get(movePlayers[0]-1).getMoveName());
                 monster.getMoves().get(movePlayers[0]-1).doMove(monster, monsterTarget);
+                // Check move amunition
+                if (monster.getMoves().get(movePlayers[0]-1).getAmmunition() == 0) {
+                    monster.getMoves().remove(movePlayers[0]-1);
+                }
             } else {
-                System.out.printf("\n[Player %s] : Oops, %s failed did %s move\n", player1.getName(), monster.getName(), monster.getMoves().get(movePlayers[0]-1).getMoveName());
+                System.out.printf("[Player %s] : Oops, %s failed did %s move\n", player1.getName(), monster.getName(), monster.getMoves().get(movePlayers[0]-1).getMoveName());
             }
         } else if (id == 2) {
             Monster monster = player2.getActiveMonster();
@@ -299,10 +313,14 @@ public class Game {
             Random r = new Random();
             int value = r.nextInt(100);
             if (value < monster.getMoves().get(movePlayers[1]-1).getAccuracy()) {
-                System.out.printf("\n[Player %s] : %s successfullt did %s move\n", player2.getName(), monster.getName(), monster.getMoves().get(movePlayers[1]-1).getMoveName());
+                System.out.printf("[Player %s] : %s successfull did %s move\n", player2.getName(), monster.getName(), monster.getMoves().get(movePlayers[1]-1).getMoveName());
                 monster.getMoves().get(movePlayers[1]-1).doMove(monster, monsterTarget);
+                // Check move amunition
+                if (monster.getMoves().get(movePlayers[1]-1).getAmmunition() == 0) {
+                    monster.getMoves().remove(movePlayers[1]-1);
+                }
             } else {
-                System.out.printf("\n[Player %s] : Oops, %s failed did %s move\n", player2.getName(), monster.getName(), monster.getMoves().get(movePlayers[1]-1).getMoveName());
+                System.out.printf("[Player %s] : Oops, %s failed did %s move\n", player2.getName(), monster.getName(), monster.getMoves().get(movePlayers[1]-1).getMoveName());
             }
         }
     }

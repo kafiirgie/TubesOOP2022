@@ -73,7 +73,7 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     }
     public void showMonsterMove() {
         for (int i = 0; i < this.moves.size(); i++) {
-            System.out.printf("> [%d] %s\n", i+1, this.moves.get(i).getMoveName());
+            System.out.printf("> [%d] %s, amunition : %d\n", i+1, this.moves.get(i).getMoveName(), this.moves.get(i).getAmmunition());
         }
     }
     
@@ -92,26 +92,27 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     // Methods for Status Condition
     public void burnStatusActive() {
         this.status = StatusConditionType.BURN;
-        System.out.println(this.name + "got BURN status condition");
+        System.out.println(this.name + " got BURN status condition");
         // reducing HP implemented in Game.java (after damage calculation)
         // reducing damage implemented in Move (damage calculation)
     }
     public void poisonStatusActive() {
         this.status = StatusConditionType.POISON;
-        System.out.println(this.name + "got POISON status condition");
+        System.out.println(this.name + " got POISON status condition");
         // reducing HP implemented in Game.java (after damage calculation)
     }
     public void sleepStatusActive() {
         this.status = StatusConditionType.SLEEP;
-        System.out.println(this.name + "got SLEEP status condition");
+        System.out.println(this.name + " got SLEEP status condition");
         // Random sleep counter
         Random r = new Random();
         this.sleepCounter = r.nextInt(7) + 1;
+        System.out.println(this.name + " can't do move for " + this.sleepCounter + " rounds.");
         // Implementation for 'monster cant move' in Game.java
     }
     public void paralyzeStatusActive() {
         this.status = StatusConditionType.PARALYZE;
-        System.out.println(this.name + "got PARALYZE status condition");
+        System.out.println(this.name + " got PARALYZE status condition");
         // Reduce monster speed
         double recucedSpeed = Math.floor(this.stats.getSpeed() / 2);
         this.stats.setSpeed(recucedSpeed);

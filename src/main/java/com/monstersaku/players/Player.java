@@ -27,8 +27,6 @@ public class Player {
         // SET random monster
         for (int i = (6*(id-1)); i < (6*id); i++) {
             int idMonster = arrOfIdMonster[i]+1;
-            System.out.println(idMonster);
-            System.out.println(Config.getMapOfMonster().get(idMonster).getName());
             this.monsters.add(Config.getMapOfMonster().get(idMonster));
         }
         // SET activeMonster
