@@ -61,7 +61,6 @@ public class NormalMove extends Move{
             burn = 1;
         }
         // Damage
-        // TODO:stats buff implementation for calculate damage
         double damage = (this.basePower * (monster.getStats().getAttack() / monsterTarget.getStats().getDefense()) + 2) * random * effectivity * burn;
         return Math.floor(damage);
     }

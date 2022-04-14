@@ -40,9 +40,10 @@ public class DefaultMove extends Move {
             System.out.println("calculating damage...");
             double damage = calculateDamage(monster, monsterTarget);
             monsterTarget.takeDamage(damage);
+
         } else {
             monster.setIsAlive(false);
-            System.out.println("monster died X_X");
+            System.out.println("monster died X_X before do default move");
         }
 
         // Update ammunition
@@ -70,7 +71,6 @@ public class DefaultMove extends Move {
             burn = 1;
         }
         // Damage
-        // TODO:stats buff implementation for calculate damage
         double damage = (this.basePower * (monster.getStats().getAttack() / monsterTarget.getStats().getDefense()) + 2) * random * effectivity * burn;
         return Math.floor(damage);
     }

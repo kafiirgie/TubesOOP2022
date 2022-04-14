@@ -61,7 +61,6 @@ public class SpecialMove extends Move{
             burn = 1;
         }
         // Damage
-        // TODO:stats buff implementation for calculate damage
         double damage = (this.basePower * (monster.getStats().getSpecialAttack() / monsterTarget.getStats().getSpecialDefense()) + 2) * random * effectivity * burn;
         return Math.floor(damage);
     }
