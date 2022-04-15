@@ -210,7 +210,7 @@ public class Player {
     public void showActiveMonster() {
         System.out.println("Active monster     :");
         if (this.activeMonster != null) {
-            System.out.println(this.activeMonster.getName());
+            System.out.println("[1] " + this.activeMonster.getName());
         } else {
             System.out.println("There is no active monster right now");
         }
@@ -226,5 +226,5 @@ public class Player {
             System.out.println("There is no non-active monsters right now");
         }
     }
-
+    
 }

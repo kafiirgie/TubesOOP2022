@@ -139,8 +139,6 @@ public class Game {
                     // Executed players move by the sequence
                     if (player1MoveFirst) {
                         playerActionMove(movePlayers, 0, player1, player2);
-                        handlePlayersActiveMonsterDied();
-                        isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
                         if (player2.getActiveMonster().getIsAlive()) {
                             playerActionMove(movePlayers, 1, player2, player1);
                             handlePlayersActiveMonsterDied();
@@ -152,15 +150,13 @@ public class Game {
                         }
                     } else {
                         playerActionMove(movePlayers, 1, player2, player1);
-                        handlePlayersActiveMonsterDied();
-                        isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; };
                         if (player1.getActiveMonster().getIsAlive()) {
                             playerActionMove(movePlayers, 0, player1, player2);
                             handlePlayersActiveMonsterDied();
                             isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
                         } else {
-                            handlePlayersActiveMonsterDied();
                             System.out.printf("\nPlayer %s active monster died, can't do move\n", player1.getName());
+                            handlePlayersActiveMonsterDied();
                             isGameRunning = checkIsGameStillRunning(); if (!isGameRunning) { break; }
                         }
                     }
@@ -266,6 +262,7 @@ public class Game {
                 } else if (input == 4) {
                     isInputValid = true;
                     System.out.println("\n[ GAME INFO ]");
+                    System.out.println("Now is " + player1.getName() + " turn");
                     player1.showPlayerInfo();
                     System.out.println();
                     player2.showPlayerInfo();
