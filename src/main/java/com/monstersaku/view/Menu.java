@@ -38,6 +38,12 @@ public class Menu {
                 } else if (input == 0) {
                     isInputValid = true;
                     exit();
+                    // code below will be run if System.exit() not executed
+                    Config.goToNextPage();
+                    Config.clearConsole();
+                    showWelcome();
+                    showStartupMenu();
+                    selectMenu();
                 } else {
                     throw new IllegalArgumentException();
                 }
@@ -52,7 +58,7 @@ public class Menu {
     public static void startGame() {
         Config.clearConsole();
         System.out.println("===== GAME =====\n");
-        Game.play();
+        Game.playGame();
     }
 
     public static void help() {
@@ -79,7 +85,24 @@ public class Menu {
     public static void exit() {
         Config.clearConsole();
         System.out.println("===== EXIT =====\n");
-        System.out.printf("processing to exit from the game"); Config.loading();
-        Exit.exitCredits();
+        boolean isInputValid = false;
+        while (!isInputValid) {
+            try {
+                Scanner sc = new Scanner(System.in);
+                System.out.printf("Are you sure you want to exit? (Y/N) : ");
+                String input = sc.next();
+                if (input == "y" || input == "Y") {
+                    isInputValid = true;
+                    System.out.printf("processing to exit from the game"); Config.loading();
+                    Exit.exitCredits();
+                } else if (input == "n" || input == "N") {
+                    isInputValid = true;
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                System.out.println("[Input Exception] : Invalid input, please input 'Y' or 'N'");
+            }
+        }
     }
 }

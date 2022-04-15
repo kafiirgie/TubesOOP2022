@@ -3,6 +3,7 @@ package com.monstersaku.monsters;
 import com.monstersaku.monsters.move.*;
 import com.monstersaku.monsters.statuscondition.*;
 import com.monstersaku.util.*;
+import com.monstersaku.players.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,8 +110,13 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
         Random r = new Random();
         this.sleepCounter = r.nextInt(7) + 1;
         System.out.println(this.name + " can't do move for " + this.sleepCounter + " rounds");
-        
+    }
+    public void hasSleepStatus(Player player) {
         // Implementation for 'monster cant move' in Game.java
+        System.out.println(player.getActiveMonster().getName() + " has SLEEP status condition.");
+        System.out.println(player.getActiveMonster().getName() + " can't do move for this turn.");
+        System.out.println("Select another monster");
+        player.switchActiveMonster();
     }
     public void paralyzeStatusActive() {
         this.status = StatusConditionType.PARALYZE;
@@ -119,7 +125,18 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
         double reducedSpeed = Math.floor(this.stats.getSpeed() / 2);
         this.stats.setSpeed(reducedSpeed);
         System.out.println(this.name + " got reduced speed, current speed is " + reducedSpeed);
-        
+    }
+    public boolean isParalyzeStatusCanMove(Player player) {
         // Implementation for 'monster cant move' in Game.java
+        System.out.println(player.getActiveMonster().getName() + " has PARALYZE status condition.");
+        Random r = new Random();
+        int random = r.nextInt(4);
+        if (random == 0) {
+            System.out.println(player.getActiveMonster().getName() + " can't do move.");
+            return false;
+        } else {
+            System.out.println(player.getActiveMonster().getName() + " still can do move.");
+            return true;
+        }
     }
 }
