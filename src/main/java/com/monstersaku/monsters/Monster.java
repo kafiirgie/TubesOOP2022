@@ -38,7 +38,6 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
             // clone move object from map of move
             Move newMove = (Move)Config.getMapOfMove().get(Integer.valueOf(move[i])).clone();
             this.moves.add(newMove);
-            //this.moves.add(Config.getMapOfMove().get(Integer.valueOf(move[i])));
         }
         DefaultMove defaultMove = new DefaultMove();
         this.moves.add(defaultMove);
@@ -73,12 +72,12 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     }
     public void showMonsterMove() {
         for (int i = 0; i < this.moves.size(); i++) {
-            System.out.printf("> [%d] %s, amunition : %d\n", i+1, this.moves.get(i).getMoveName(), this.moves.get(i).getAmmunition());
+            System.out.printf("> [%d] %s | Amunition : %d\n", i+1, this.moves.get(i).getMoveName(), this.moves.get(i).getAmmunition());
         }
     }
     
     public void takeDamage(double damage) {
-        System.out.printf("\n%s got damage %f points\n", this.name, damage);
+        System.out.printf("%s got damage %f points\n", this.name, damage);
         double damagedHealthPoint = this.stats.getHealthPoint() - damage;
         if (damagedHealthPoint > 0) {
             this.stats.setHealthPoint(damagedHealthPoint);
@@ -93,13 +92,15 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
     public void burnStatusActive() {
         this.status = StatusConditionType.BURN;
         System.out.println(this.name + " got BURN status condition");
-        // reducing HP implemented in Game.java (after damage calculation)
-        // reducing damage implemented in Move (damage calculation)
+        
+        // 'reducing HP' implemented in Game.java (after damage calculation)
+        // 'reducing damage' implemented in Move (damage calculation)
     }
     public void poisonStatusActive() {
         this.status = StatusConditionType.POISON;
         System.out.println(this.name + " got POISON status condition");
-        // reducing HP implemented in Game.java (after damage calculation)
+        
+        // 'reducing HP' implemented in Game.java (after damage calculation)
     }
     public void sleepStatusActive() {
         this.status = StatusConditionType.SLEEP;
@@ -107,15 +108,18 @@ public class Monster implements Burn, Poison, Sleep, Paralyze {
         // Random sleep counter
         Random r = new Random();
         this.sleepCounter = r.nextInt(7) + 1;
-        System.out.println(this.name + " can't do move for " + this.sleepCounter + " rounds.");
+        System.out.println(this.name + " can't do move for " + this.sleepCounter + " rounds");
+        
         // Implementation for 'monster cant move' in Game.java
     }
     public void paralyzeStatusActive() {
         this.status = StatusConditionType.PARALYZE;
         System.out.println(this.name + " got PARALYZE status condition");
         // Reduce monster speed
-        double recucedSpeed = Math.floor(this.stats.getSpeed() / 2);
-        this.stats.setSpeed(recucedSpeed);
+        double reducedSpeed = Math.floor(this.stats.getSpeed() / 2);
+        this.stats.setSpeed(reducedSpeed);
+        System.out.println(this.name + " got reduced speed, current speed is " + reducedSpeed);
+        
         // Implementation for 'monster cant move' in Game.java
     }
 }

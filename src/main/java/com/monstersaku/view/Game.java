@@ -176,7 +176,7 @@ public class Game {
                 }
                 
                 // AFTER DAMAGE CALCULATION
-                System.out.println("\nAfter Damage Calculation:");
+                System.out.println("\n[After Damage Calculation]");
                 afterDamageCalculation(player1);
                 afterDamageCalculation(player2);
                 
@@ -335,6 +335,11 @@ public class Game {
         }
     }
 
+    public static void handlePlayersActiveMonsterDied(Player player) {
+        if (!player.getActiveMonster().getIsAlive()) {
+            player.activeMonsterDied();
+        }
+    }
     public static void handlePlayersActiveMonsterDied() {
         if (!player1.getActiveMonster().getIsAlive()) { player1.activeMonsterDied(); }
         if (!player2.getActiveMonster().getIsAlive()) { player2.activeMonsterDied(); }

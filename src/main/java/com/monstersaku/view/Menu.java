@@ -58,7 +58,6 @@ public class Menu {
     public static void help() {
         Config.clearConsole();
         System.out.println("===== HELP =====\n");
-        System.out.println("hi, what can we help you?");
         System.out.println();
         // TODO:create help text
         System.out.println("DESKRIPSI PERMAINAN");

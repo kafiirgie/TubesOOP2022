@@ -33,7 +33,6 @@ public class ElementEffKey {
         }
         // typecast o to ElementEffKey so that we can compare data members
         ElementEffKey c = (ElementEffKey) o;
-         
         // Compare the data members and return accordingly
         return this.source == c.source && this.target == c.target;
     }

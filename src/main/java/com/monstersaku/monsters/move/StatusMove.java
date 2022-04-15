@@ -49,54 +49,80 @@ public class StatusMove extends Move {
     }
     
     // PARENT CLASS METHODS
-    public void doMove(Monster monster, Monster monsterTarget) {
-        System.out.println("Using status move");
+    public void doMove(Monster monsterOwn, Monster monsterEnemy) {
+        System.out.println("Using STATUS MOVE...");
         if (super.getTarget() == MoveTarget.OWN) {
+            // Status Condition Change
+            this.doStatusChange(monsterOwn);
+            // Stats Effect
+            this.doStatsEffect(monsterOwn);
+            // Stats Buff
             if (this.statsBuff != null) {
-                this.doStatsBuff(monster);
+                this.doStatsBuff(monsterOwn);
             }
-            if (this.status == StatusConditionType.BURN) {
-                monster.burnStatusActive();
-            } else if (this.status == StatusConditionType.POISON) {
-                monster.poisonStatusActive();
-            } else if (this.status == StatusConditionType.SLEEP) {
-                monster.sleepStatusActive();
-            } else if (this.status == StatusConditionType.PARALYZE) {
-                monster.paralyzeStatusActive();
-            }
-            monster.getStats().setHealthPoint(monster.getStats().getHealthPoint() + this.effectHealthPoint - ((monster.getStats().getHealthPoint() + this.effectHealthPoint) % monster.getStats().getMaxHealthPoint()));
-            monster.getStats().setAttack(monster.getStats().getAttack() + this.effectAttack);
-            monster.getStats().setDefense(monster.getStats().getDefense() + this.effectDefense);
-            monster.getStats().setSpecialAttack(monster.getStats().getSpecialAttack() + this.effectSpecialAttack);
-            monster.getStats().setSpecialDefense(monster.getStats().getSpecialDefense() + this.effectSpecialDefense);
-            monster.getStats().setSpeed(monster.getStats().getSpeed() + this.effectSpeed);
         } else if (super.getTarget() == MoveTarget.ENEMY) {
+            // Status Condition Change
+            this.doStatusChange(monsterEnemy);
+            // Stats Effect
+            this.doStatsEffect(monsterEnemy);
+            // Stats Buff
             if (this.statsBuff != null) {
-                this.doStatsBuff(monsterTarget);
+                this.doStatsBuff(monsterEnemy);
             }
-            if (this.status == StatusConditionType.BURN) {
-                monsterTarget.burnStatusActive();
-            } else if (this.status == StatusConditionType.POISON) {
-                monsterTarget.poisonStatusActive();
-            } else if (this.status == StatusConditionType.SLEEP) {
-                monsterTarget.sleepStatusActive();
-            } else if (this.status == StatusConditionType.PARALYZE) {
-                monsterTarget.paralyzeStatusActive();
-            }
-            monsterTarget.getStats().setHealthPoint(monsterTarget.getStats().getHealthPoint() + this.effectHealthPoint);
-            monsterTarget.getStats().setAttack(monsterTarget.getStats().getAttack() + this.effectAttack);
-            monsterTarget.getStats().setDefense(monsterTarget.getStats().getDefense() + this.effectDefense);
-            monsterTarget.getStats().setSpecialAttack(monsterTarget.getStats().getSpecialAttack() + this.effectSpecialAttack);
-            monsterTarget.getStats().setSpecialDefense(monsterTarget.getStats().getSpecialDefense() + this.effectSpecialDefense);
-            monsterTarget.getStats().setSpeed(monsterTarget.getStats().getSpeed() + this.effectSpeed);
         }
-
         // Update ammunition
         super.setAmunition(super.getAmmunition() - 1);
     }
 
-    public void doStatsBuff(Monster monster) {
-        System.out.printf("\n%s got status buff\n", monster.getName());
+    // OTHER METHODS
+    private void doStatusChange(Monster monster) {
+        System.out.printf("\nCheck the status condition change for %s :\n", monster.getName());
+        if (this.status == StatusConditionType.BURN) {
+            monster.burnStatusActive();
+        } else if (this.status == StatusConditionType.POISON) {
+            monster.poisonStatusActive();
+        } else if (this.status == StatusConditionType.SLEEP) {
+            monster.sleepStatusActive();
+        } else if (this.status == StatusConditionType.PARALYZE) {
+            monster.paralyzeStatusActive();
+        } else {
+            System.out.println("There is no status condition change");
+        }
+    }
+    
+    private void doStatsEffect(Monster monster) {
+        System.out.printf("\nCheck the stats effect for %s :\n", monster.getName());
+        // Effect for health point stats
+        Double effectedHP = monster.getStats().getHealthPoint() + this.effectHealthPoint;
+        Double updatedHP;
+        if (effectedHP > monster.getStats().getMaxHealthPoint()) {
+            updatedHP = monster.getStats().getMaxHealthPoint();
+        } else if (effectedHP <= monster.getStats().getMaxHealthPoint() && effectedHP >= 0) {
+            updatedHP = effectedHP;
+        } else { // effectedHP < 0
+            updatedHP = 0d;
+        }
+        monster.getStats().setHealthPoint(updatedHP);
+        System.out.println("current HP          : " + monster.getStats().getHealthPoint());
+        // Effect for attack stats
+        monster.getStats().setAttack(monster.getStats().getAttack() + this.effectAttack);
+        System.out.println("current ATK         : " + monster.getStats().getAttack());
+        // Effect for defense stats
+        monster.getStats().setDefense(monster.getStats().getDefense() + this.effectDefense);
+        System.out.println("current DEF         : " + monster.getStats().getDefense());
+        // Effect for special attack stats
+        monster.getStats().setSpecialAttack(monster.getStats().getSpecialAttack() + this.effectSpecialAttack);
+        System.out.println("current SPECIAL ATK : " + monster.getStats().getSpecialAttack());
+        // Effect for special defense stats
+        monster.getStats().setSpecialDefense(monster.getStats().getSpecialDefense() + this.effectSpecialDefense);
+        System.out.println("current SPECIAL DEF : " + monster.getStats().getSpecialAttack());
+        // Effect for speed stats
+        monster.getStats().setSpeed(monster.getStats().getSpeed() + this.effectSpeed);
+        System.out.println("current SPEED       : " + monster.getStats().getSpeed());
+    }
+
+    private void doStatsBuff(Monster monster) {
+        System.out.printf("\n%s got stats buff :\n", monster.getName());
         // Random Stats Buff Value
         Random r = new Random();
         this.statsBuff.setAttackBuff(r.nextInt(9) - 4);

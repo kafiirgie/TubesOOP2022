@@ -8,7 +8,7 @@ import com.monstersaku.monsters.Monster;
 import com.monstersaku.monsters.statuscondition.StatusConditionType;
 import com.monstersaku.util.Config;
 
-public class SpecialMove extends Move{
+public class SpecialMove extends Move {
     // CHILD CLASS ATTRIBUTE
     private final double basePower;
     
@@ -28,40 +28,39 @@ public class SpecialMove extends Move{
     public double getBasePower() { return this.basePower; }
 
     // PARENT CLASS METHOD
-    public void doMove(Monster monster, Monster monsterTarget) {
-        System.out.println("Using special move");
-        
+    public void doMove(Monster monsterOwn, Monster monsterEnemy) {
+        System.out.println("Using SPECIAL MOVE...");
         // Calculate damage
         System.out.println("calculating damage...");
-        double damage = calculateDamage(monster, monsterTarget);
-        monsterTarget.takeDamage(damage);
-
+        double damage = calculateDamage(monsterOwn, monsterEnemy);
+        monsterEnemy.takeDamage(damage);
         // Update ammunition
         super.setAmunition(super.getAmmunition() - 1);
     }
-
-    private double calculateDamage(Monster monster, Monster monsterTarget) {
+    
+    // OTHER METHOD
+    private double calculateDamage(Monster monsterOwn, Monster monsterEnemy) {
         // Random
         double rangeMin = 0.85;
         double rangeMax = 1;
         Random r = new Random();
         double random = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
-        // Element eff
+        // Element Effectivity
         double effectivity = 1;
-        for (int i = 0; i < monster.getElements().size(); i++) {
-            ElementEffKey key = new ElementEffKey(super.getElementType(), monsterTarget.getElements().get(i));
+        for (int i = 0; i < monsterOwn.getElements().size(); i++) {
+            ElementEffKey key = new ElementEffKey(super.getElementType(), monsterEnemy.getElements().get(i));
             effectivity *= Config.getMapOfElementEff().get(key);
             
         }
         // Burn Factor
         double burn;
-        if (monster.getStatus() == StatusConditionType.BURN) {
+        if (monsterOwn.getStatus() == StatusConditionType.BURN) {
             burn = 0.5;
         } else {
             burn = 1;
         }
         // Damage
-        double damage = (this.basePower * (monster.getStats().getSpecialAttack() / monsterTarget.getStats().getSpecialDefense()) + 2) * random * effectivity * burn;
+        double damage = (this.basePower * (monsterOwn.getStats().getSpecialAttack() / monsterEnemy.getStats().getSpecialDefense()) + 2) * random * effectivity * burn;
         return Math.floor(damage);
     }
 

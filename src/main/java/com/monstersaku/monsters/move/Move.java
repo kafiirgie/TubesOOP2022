@@ -41,6 +41,6 @@ public abstract class Move implements Cloneable {
         return (Move)super.clone();
     }
     // ABSTRACT METHOD
-    public abstract void doMove(Monster monster, Monster monsterTarget);
+    public abstract void doMove(Monster monsterOwn, Monster monsterEnemy);
 
 }

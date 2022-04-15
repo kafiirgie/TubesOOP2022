@@ -192,20 +192,23 @@ public class Player {
     // [4] Show Game Info
     public void showPlayerInfo() {
         System.out.printf("PLAYER %d INFO\n", this.id);
-        System.out.printf("Player name : %s\n", this.name);
+        System.out.printf("Player name        : %s\n", this.name);
         this.showActiveMonster();
         this.showNonActiveMonster();
     }
     
     public void showAliveMonsters() {
-        System.out.println("Alive monsters:");
+        System.out.println("Alive monsters :");
         for (int i = 0; i < this.monsters.size(); i++) {
-            System.out.printf("[%d] %s\n", i+1, this.monsters.get(i).getName());
+            if (this.monsters.get(i).getName().equals(this.activeMonster.getName())) {
+                System.out.printf("[%d] %s (Active)\n", i+1, this.monsters.get(i).getName());
+            }
+            System.out.printf("[%d] %s (Non-Active)\n", i+1, this.monsters.get(i).getName());
         }
     }
 
     public void showActiveMonster() {
-        System.out.println("Active monster:");
+        System.out.println("Active monster     :");
         if (this.activeMonster != null) {
             System.out.println(this.activeMonster.getName());
         } else {
@@ -214,7 +217,7 @@ public class Player {
     }
 
     public void showNonActiveMonster() {
-        System.out.println("Inactive monsters:");
+        System.out.println("Non-Active monster :");
         if (this.nonActiveMonsters.size() > 0) {
             for (int i = 0; i < this.nonActiveMonsters.size(); i++) {
                 System.out.printf("[%d] %s\n", i+1, this.nonActiveMonsters.get(i).getName());
